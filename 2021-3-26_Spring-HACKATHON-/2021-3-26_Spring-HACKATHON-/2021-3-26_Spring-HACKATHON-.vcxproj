@@ -18,6 +18,46 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\debug_font\debugfont.cpp" />
+    <ClCompile Include="source\game\bg.cpp" />
+    <ClCompile Include="source\game\fade.cpp" />
+    <ClCompile Include="source\game\game.cpp" />
+    <ClCompile Include="source\input\input.cpp" />
+    <ClCompile Include="source\input\joystick.cpp" />
+    <ClCompile Include="source\input\keyboard.cpp" />
+    <ClCompile Include="source\object\character\character.cpp" />
+    <ClCompile Include="source\object\character\player\player.cpp" />
+    <ClCompile Include="source\object\polygon.cpp" />
+    <ClCompile Include="source\object\scene.cpp" />
+    <ClCompile Include="source\object\scene2d.cpp" />
+    <ClCompile Include="source\out_game\result.cpp" />
+    <ClCompile Include="source\out_game\title.cpp" />
+    <ClCompile Include="source\renderer\renderer.cpp" />
+    <ClCompile Include="source\system\main.cpp" />
+    <ClCompile Include="source\system\manager.cpp" />
+    <ClCompile Include="source\system\sound.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\debug_font\debugfont.h" />
+    <ClInclude Include="source\game\bg.h" />
+    <ClInclude Include="source\game\fade.h" />
+    <ClInclude Include="source\game\game.h" />
+    <ClInclude Include="source\input\input.h" />
+    <ClInclude Include="source\input\joystick.h" />
+    <ClInclude Include="source\input\keyboard.h" />
+    <ClInclude Include="source\object\character\character.h" />
+    <ClInclude Include="source\object\character\player\player.h" />
+    <ClInclude Include="source\object\polygon.h" />
+    <ClInclude Include="source\object\scene.h" />
+    <ClInclude Include="source\object\scene2d.h" />
+    <ClInclude Include="source\out_game\result.h" />
+    <ClInclude Include="source\out_game\title.h" />
+    <ClInclude Include="source\renderer\renderer.h" />
+    <ClInclude Include="source\system\main.h" />
+    <ClInclude Include="source\system\manager.h" />
+    <ClInclude Include="source\system\sound.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5323C289-1718-4860-BD39-F06A8BD2800A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -93,6 +133,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>C:\Users\Gsp032\Desktop\2021-3-26_Spring--HACKATHON-\2021-3-26_Spring-HACKATHON-\2021-3-26_Spring-HACKATHON-\source\system;C:\Users\Gsp032\Desktop\2021-3-26_Spring--HACKATHON-\2021-3-26_Spring-HACKATHON-\2021-3-26_Spring-HACKATHON-\source\renderer;C:\Users\Gsp032\Desktop\2021-3-26_Spring--HACKATHON-\2021-3-26_Spring-HACKATHON-\2021-3-26_Spring-HACKATHON-\source\out_game;C:\Users\Gsp032\Desktop\2021-3-26_Spring--HACKATHON-\2021-3-26_Spring-HACKATHON-\2021-3-26_Spring-HACKATHON-\source\object\character\player;C:\Users\Gsp032\Desktop\2021-3-26_Spring--HACKATHON-\2021-3-26_Spring-HACKATHON-\2021-3-26_Spring-HACKATHON-\source\object\character\enemy;C:\Users\Gsp032\Desktop\2021-3-26_Spring--HACKATHON-\2021-3-26_Spring-HACKATHON-\2021-3-26_Spring-HACKATHON-\source\object\character;C:\Users\Gsp032\Desktop\2021-3-26_Spring--HACKATHON-\2021-3-26_Spring-HACKATHON-\2021-3-26_Spring-HACKATHON-\source\object;C:\Users\Gsp032\Desktop\2021-3-26_Spring--HACKATHON-\2021-3-26_Spring-HACKATHON-\2021-3-26_Spring-HACKATHON-\source\input;C:\Users\Gsp032\Desktop\2021-3-26_Spring--HACKATHON-\2021-3-26_Spring-HACKATHON-\2021-3-26_Spring-HACKATHON-\source\game;C:\Users\Gsp032\Desktop\2021-3-26_Spring--HACKATHON-\2021-3-26_Spring-HACKATHON-\2021-3-26_Spring-HACKATHON-\source\debug_font;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -148,42 +189,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="bg.cpp" />
-    <ClCompile Include="debugfont.cpp" />
-    <ClCompile Include="fade.cpp" />
-    <ClCompile Include="game.cpp" />
-    <ClCompile Include="input.cpp" />
-    <ClCompile Include="joystick.cpp" />
-    <ClCompile Include="keyboard.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="manager.cpp" />
-    <ClCompile Include="polygon.cpp" />
-    <ClCompile Include="renderer.cpp" />
-    <ClCompile Include="result.cpp" />
-    <ClCompile Include="scene.cpp" />
-    <ClCompile Include="scene2d.cpp" />
-    <ClCompile Include="sound.cpp" />
-    <ClCompile Include="title.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="bg.h" />
-    <ClInclude Include="debugfont.h" />
-    <ClInclude Include="fade.h" />
-    <ClInclude Include="game.h" />
-    <ClInclude Include="input.h" />
-    <ClInclude Include="joystick.h" />
-    <ClInclude Include="keyboard.h" />
-    <ClInclude Include="main.h" />
-    <ClInclude Include="manager.h" />
-    <ClInclude Include="polygon.h" />
-    <ClInclude Include="renderer.h" />
-    <ClInclude Include="result.h" />
-    <ClInclude Include="scene.h" />
-    <ClInclude Include="scene2d.h" />
-    <ClInclude Include="sound.h" />
-    <ClInclude Include="title.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

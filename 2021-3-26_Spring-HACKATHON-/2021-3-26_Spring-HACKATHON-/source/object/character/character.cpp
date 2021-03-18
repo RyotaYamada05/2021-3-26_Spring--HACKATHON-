@@ -13,6 +13,7 @@ CCharacter::CCharacter(int nPriority) : CScene2D(nPriority)
 {
 	//メンバ変数の初期化
 	m_state = CHARACTER_STATE_NORMAL;
+	m_nLife = 0;
 	m_nStateCounter = 0;
 }
 
@@ -26,7 +27,7 @@ CCharacter::~CCharacter()
 //=============================================================================
 //キャラクタークラスの状態判定処理
 //=============================================================================
-bool CCharacter::DecisionState(void)
+bool CCharacter::CheckState(void)
 {
 	switch (m_state)
 	{
@@ -84,4 +85,36 @@ void CCharacter::SetState(CHARACTER_STATE state)
 CCharacter::CHARACTER_STATE CCharacter::GetState(void)
 {
 	return m_state;
+}
+
+//=============================================================================
+//キャラクタークラスのライフ加算処理
+//=============================================================================
+void CCharacter::AddLife(const int nAddValue)
+{
+	m_nLife += nAddValue;
+}
+
+//=============================================================================
+//キャラクタークラスのライフ減算処理
+//=============================================================================
+void CCharacter::SubLife(const int nSubValue)
+{
+	m_nLife -= nSubValue;
+}
+
+//=============================================================================
+//キャラクタークラスのライフ設定処理
+//=============================================================================
+void CCharacter::SetLife(const int nLife)
+{
+	m_nLife = nLife;
+}
+
+//=============================================================================
+//キャラクタークラスのライフ取得処理
+//=============================================================================
+int CCharacter::GetLife(void)
+{
+	return m_nLife;
 }

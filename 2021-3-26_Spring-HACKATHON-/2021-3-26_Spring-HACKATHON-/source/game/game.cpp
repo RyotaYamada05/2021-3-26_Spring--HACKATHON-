@@ -11,11 +11,11 @@
 #include "manager.h"
 #include "sound.h"
 #include "debugfont.h"
+#include "player.h"
 //=============================================================================
 //静的メンバ変数宣言
 //=============================================================================
 CGame::GAME_STATE CGame::m_state = CGame::GAME_STATE_NOMRAL;
-
 
 //=============================================================================
 //ゲームクラスのコンストラクタ
@@ -69,11 +69,10 @@ HRESULT CGame::Init(void)
 	// 背景クラスの生成
 	CBg::Create();
 
-
 	//BGMの再生
 	CManager::GetSound()->Play(CSound::SOUND_LABEL_BGM_GAME);
 	
-	//CCharacter *pChara = new CCharacter;
+	CPlayer::Create(SCREEN_CENTER_POS, D3DXVECTOR3(200.0f, 200.0f, 0.0f));
 	return S_OK;
 }
 
@@ -82,7 +81,6 @@ HRESULT CGame::Init(void)
 //=============================================================================
 void CGame::Uninit(void)
 {
-
 	//オブジェクトの破棄
 	SetDeathFlag();
 }

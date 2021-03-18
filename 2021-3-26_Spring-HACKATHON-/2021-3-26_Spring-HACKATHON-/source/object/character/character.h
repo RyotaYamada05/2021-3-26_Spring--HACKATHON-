@@ -10,7 +10,8 @@
 //=============================================================================
 //インクルードファイル
 //=============================================================================
-#include "character.h"
+#include "scene2d.h"
+#define DEATH(bDeath)(((bool)(bDeath)) == true)
 
 //=============================================================================
 //キャラクタークラス
@@ -34,11 +35,10 @@ public:
 	//=========================================================================
 	CCharacter(int nPriority);
 	~CCharacter();
-	bool DecisionState(void);
+	bool CheckState(void);
 	void SetState(CHARACTER_STATE state);
 	CHARACTER_STATE GetState(void);
 	virtual void DiedProcess(void) = 0;
-	void Damage(const int nDamage);
 	void AddLife(const int nAddValue);
 	void SubLife(const int nSubValue);
 	void SetLife(const int nLife);

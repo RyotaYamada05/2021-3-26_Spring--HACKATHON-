@@ -22,13 +22,13 @@
 //=============================================================================
 //色のマクロ定義
 //=============================================================================
-#define COLOR_RED D3DCOLOR_RGBA(255,50,50,255)	//赤色
-#define COLOR_BLUE D3DCOLOR_RGBA(50,50,255,255)	//青色
+#define COLOR_RED D3DCOLOR_RGBA(255,50,50,255)		//赤色
+#define COLOR_BLUE D3DCOLOR_RGBA(50,50,255,255)		//青色
 #define COLOR_CYAN D3DCOLOR_RGBA(50,255,255,255)	//シアン
 #define COLOR_GREEN D3DCOLOR_RGBA(50,255,50,255)	//緑色
 #define COLOR_YELLOW D3DCOLOR_RGBA(255,255,50,255)	//黄色
 #define COLOR_PURPLE D3DCOLOR_RGBA(128,50,128,255)	//紫
-#define COLOR_BLACK D3DCOLOR_RGBA(0,0,0,255)	//黒色
+#define COLOR_BLACK D3DCOLOR_RGBA(0,0,0,255)		//黒色
 #define COLOR_WHITE D3DCOLOR_RGBA(255,255,255,255)	//白色
 #define COLOR_ALPHA D3DCOLOR_RGBA(255,255,255,50)	//半透明の白色
 

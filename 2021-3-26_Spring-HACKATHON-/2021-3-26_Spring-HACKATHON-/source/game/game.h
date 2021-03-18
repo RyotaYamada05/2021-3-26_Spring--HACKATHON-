@@ -28,7 +28,7 @@ public:
 		GAME_STATE_BOSS_BATTLE,	//ボス戦
 		GAME_STATE_GAME_CLEAR,	//ゲームクリア処理
 		GAME_STATE_GAME_OVER,	//ゲームオーバー処理
-		GAME_STATE_MAX,	//ゲーム状態の最大数
+		GAME_STATE_MAX,			//ゲーム状態の最大数
 	}GAME_STATE;
 
 	//=========================================================================
