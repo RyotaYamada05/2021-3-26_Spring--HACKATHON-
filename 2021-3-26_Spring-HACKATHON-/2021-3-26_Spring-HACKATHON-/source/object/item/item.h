@@ -1,41 +1,42 @@
 //=============================================================================
 //
-// プレイヤー処理 [player.h]
+// アイテムy処理 [item.h]
 // Author : 山田陵太
 //
 //=============================================================================
-#ifndef _PLAYER_H_
-#define _PLAYER_H_
+#ifndef _ITEM_H_
+#define _ITEM_H_ 
 
 //=============================================================================
 //インクルードファイル
 //=============================================================================
-#include "character.h"
+#include "scene2d.h"
 
 //=============================================================================
-//プレイヤークラス
+//マクロ定義
 //=============================================================================
-class CPlayer :public CCharacter
+#define ITEM_SIZE_X 40.0f	//アイテムのX軸のサイズ
+#define ITEM_SIZE_Y 40.0f	//アイテムのY軸のサイズ
+#define ITEM_SIZE D3DXVECTOR3(ITEM_SIZE_X,ITEM_SIZE_Y,0.0f)	//アイテムのサイズ
+
+//=============================================================================
+//アイテムクラス
+//=============================================================================
+class CItem :public CScene2D
 {
 public:
-	CPlayer(int nPriority = PRIORITY_PLAYER);
-	~CPlayer();
+	CItem();
+	~CItem();
 
-	static CPlayer *Create(D3DXVECTOR3 pos, D3DXVECTOR3 size);
+	CItem *Create(D3DXVECTOR3 pos, D3DXVECTOR3 size);
+
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
 
-	void Move(void);
-	void Damage(const int nDamage);
-	void Recovery(const int nRecovery);
-	void DiedProcess(void);
 
-#ifdef _DEBUG
-	void DebugDataPrint(void);
-#endif
 private:
-	D3DXVECTOR3 m_move;	//移動量
 };
-#endif // !_PLAYER_H_
+
+#endif // !_ITEM_H_

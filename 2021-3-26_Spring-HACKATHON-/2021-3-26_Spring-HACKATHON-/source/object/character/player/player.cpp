@@ -8,12 +8,20 @@
 #include "manager.h"
 #include "keyboard.h"
 #include "debugfont.h"
+#include "fade.h"
 
+//=============================================================================
+//マクロ定義
+//=============================================================================
+#define MOVE_VALUE 5.0f			//移動量
+#define INERTIA_CONSTANT 0.15f	//慣性の定数
+#define MAX_PLAYER_LIFE	50		//プレイヤーの最大体力
 //=============================================================================
 //プレイヤークラスのコンストラクタ
 //=============================================================================
 CPlayer::CPlayer(int nPriority):CCharacter(nPriority)
 {
+	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 }
 
 //=============================================================================
@@ -45,8 +53,15 @@ CPlayer * CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 //=============================================================================
 HRESULT CPlayer::Init(void)
 {
+	//体力の設定
+	SetMaxLife(MAX_PLAYER_LIFE);
+	SetLife(MAX_PLAYER_LIFE);
+
+	//CScene2Dの初期化
 	CScene2D::Init();
 
+	//オブジェクトタイプの設定
+	CScene::SetObjType(CScene::OBJTYPE_PLAYER);
 	return S_OK;
 }
 
@@ -55,6 +70,7 @@ HRESULT CPlayer::Init(void)
 //=============================================================================
 void CPlayer::Uninit(void)
 {
+	//CScene2Dの終了処理
 	CScene2D::Uninit();
 }
 
@@ -66,13 +82,10 @@ void CPlayer::Update(void)
 	//移動処理
 	Move();
 
+#ifdef _DEBUG
 	if (CManager::GetKeyborad()->GetKeyBoardTrigger(DIK_NUMPAD2))
 	{
-		SetState(CHARACTER_STATE_DIED);
-	}
-	if (CManager::GetKeyborad()->GetKeyBoardTrigger(DIK_NUMPAD5))
-	{
-		SetState(CHARACTER_STATE_DAMAGE);
+		Damage(10);
 	}
 	if (CManager::GetKeyborad()->GetKeyBoardTrigger(DIK_NUMPAD7))
 	{
@@ -86,16 +99,21 @@ void CPlayer::Update(void)
 	{
 		AddLife(1);
 	}
+#endif
 
 	//CScene2Dの更新処理
 	CScene2D::Update();
 
+	CHARACTER_STATE charaState = CheckState();
 	//状態判定処理
-	if (DEATH(CheckState()))
+	if (STATE_DEATH(charaState))
 	{//死んでいた場合
 		return;
 	}
-	CDebugFont::Print(CDebugFont::DEBUG_LAYER_LEFT, "プレイヤーのHP:%d\n", GetLife());
+
+#ifdef _DEBUG
+	DebugDataPrint();
+#endif
 }
 
 //=============================================================================
@@ -103,6 +121,7 @@ void CPlayer::Update(void)
 //=============================================================================
 void CPlayer::Draw(void)
 {
+	//CScene2Dの描画処理
 	CScene2D::Draw();
 }
 
@@ -114,10 +133,64 @@ void CPlayer::Move(void)
 	//位置を取得
 	D3DXVECTOR3 pos = GetPos();
 
-	pos.x += 0.5f;
+	if (CManager::GetKeyborad()->GetKeyBoardPress(DIK_W))
+	{
+		m_move.y = -MOVE_VALUE;
+	}
+	if (CManager::GetKeyborad()->GetKeyBoardPress(DIK_S))
+	{
+		m_move.y = MOVE_VALUE;
+	}
+	if (CManager::GetKeyborad()->GetKeyBoardPress(DIK_A))
+	{
+		m_move.x = -MOVE_VALUE;
+	}
+	if (CManager::GetKeyborad()->GetKeyBoardPress(DIK_D))
+	{
+		m_move.x = MOVE_VALUE;
+	}
+	
+	//慣性の処理
+	m_move.x += (0.0f - m_move.x) * INERTIA_CONSTANT;
+	m_move.y += (0.0f - m_move.y) * INERTIA_CONSTANT;
+
+	//位置に移動量を与える
+	pos += m_move;
 
 	//位置を設定
 	SetPos(pos);
+}
+
+//=============================================================================
+//プレイヤークラスのダメージ処理
+//=============================================================================
+void CPlayer::Damage(const int nDamage)
+{
+	if (STATE_NORMAL(GetState()))
+	{
+		//HPを減らす
+		SubLife(nDamage);
+
+		//体力が0以下になったら死亡
+		if (GetLife() <= 0)
+		{
+			//死亡状態へ移行
+			SetState(CHARACTER_STATE_DIED);
+		}
+		else
+		{
+			//ダメージ状態へ移行
+			SetState(CHARACTER_STATE_DAMAGE);
+		}
+	}
+}
+
+//=============================================================================
+//プレイヤークラスの体力回復処理
+//=============================================================================
+void CPlayer::Recovery(const int nRecovery)
+{
+	AddLife(nRecovery);
 }
 
 //=============================================================================
@@ -128,4 +201,21 @@ void CPlayer::DiedProcess(void)
 {
 	//終了処理
 	Uninit();
+
+	//リザルトへ移行
+	CManager::GetFade()->SetFade(CManager::MODE_TYPE_RESULT);
 }
+
+#ifdef _DEBUG
+//=============================================================================
+//プレイヤークラスのデバッグ情報の表示処理
+//デバッグ情報の表示を取りまとめる関数
+//=============================================================================
+void CPlayer::DebugDataPrint(void)
+{
+	CDebugFont::Print(CDebugFont::DEBUG_LAYER_LEFT, "プレイヤーの現在HP:%d\n", GetLife());
+	CDebugFont::Print(CDebugFont::DEBUG_LAYER_LEFT, "プレイヤーの最大HP:%d\n", GetMaxLife());
+	CDebugFont::Print(CDebugFont::DEBUG_LAYER_LEFT, "プレイヤーの位置X:%0.2f\n", GetPos().x);
+	CDebugFont::Print(CDebugFont::DEBUG_LAYER_LEFT, "プレイヤーの位置Y:%0.2f\n", GetPos().y);
+}
+#endif

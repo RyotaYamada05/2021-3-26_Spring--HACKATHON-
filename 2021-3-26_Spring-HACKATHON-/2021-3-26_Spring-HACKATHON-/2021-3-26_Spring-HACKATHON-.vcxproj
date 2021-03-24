@@ -28,6 +28,7 @@
     <ClCompile Include="source\input\keyboard.cpp" />
     <ClCompile Include="source\object\character\character.cpp" />
     <ClCompile Include="source\object\character\player\player.cpp" />
+    <ClCompile Include="source\object\item\item.cpp" />
     <ClCompile Include="source\object\polygon.cpp" />
     <ClCompile Include="source\object\scene.cpp" />
     <ClCompile Include="source\object\scene2d.cpp" />
@@ -48,6 +49,7 @@
     <ClInclude Include="source\input\keyboard.h" />
     <ClInclude Include="source\object\character\character.h" />
     <ClInclude Include="source\object\character\player\player.h" />
+    <ClInclude Include="source\object\item\item.h" />
     <ClInclude Include="source\object\polygon.h" />
     <ClInclude Include="source\object\scene.h" />
     <ClInclude Include="source\object\scene2d.h" />
@@ -133,7 +135,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>C:\Users\Gsp032\Desktop\2021-3-26_Spring--HACKATHON-\2021-3-26_Spring-HACKATHON-\2021-3-26_Spring-HACKATHON-\source\system;C:\Users\Gsp032\Desktop\2021-3-26_Spring--HACKATHON-\2021-3-26_Spring-HACKATHON-\2021-3-26_Spring-HACKATHON-\source\renderer;C:\Users\Gsp032\Desktop\2021-3-26_Spring--HACKATHON-\2021-3-26_Spring-HACKATHON-\2021-3-26_Spring-HACKATHON-\source\out_game;C:\Users\Gsp032\Desktop\2021-3-26_Spring--HACKATHON-\2021-3-26_Spring-HACKATHON-\2021-3-26_Spring-HACKATHON-\source\object\character\player;C:\Users\Gsp032\Desktop\2021-3-26_Spring--HACKATHON-\2021-3-26_Spring-HACKATHON-\2021-3-26_Spring-HACKATHON-\source\object\character\enemy;C:\Users\Gsp032\Desktop\2021-3-26_Spring--HACKATHON-\2021-3-26_Spring-HACKATHON-\2021-3-26_Spring-HACKATHON-\source\object\character;C:\Users\Gsp032\Desktop\2021-3-26_Spring--HACKATHON-\2021-3-26_Spring-HACKATHON-\2021-3-26_Spring-HACKATHON-\source\object;C:\Users\Gsp032\Desktop\2021-3-26_Spring--HACKATHON-\2021-3-26_Spring-HACKATHON-\2021-3-26_Spring-HACKATHON-\source\input;C:\Users\Gsp032\Desktop\2021-3-26_Spring--HACKATHON-\2021-3-26_Spring-HACKATHON-\2021-3-26_Spring-HACKATHON-\source\game;C:\Users\Gsp032\Desktop\2021-3-26_Spring--HACKATHON-\2021-3-26_Spring-HACKATHON-\2021-3-26_Spring-HACKATHON-\source\debug_font;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\2021-3-26_Spring-HACKATHON-\source\system;$(SolutionDir)\2021-3-26_Spring-HACKATHON-\source\renderer;$(SolutionDir)\2021-3-26_Spring-HACKATHON-\source\out_game;$(SolutionDir)\2021-3-26_Spring-HACKATHON-\source\object\item;$(SolutionDir)\2021-3-26_Spring-HACKATHON-\source\object\character\enemy;$(SolutionDir)\2021-3-26_Spring-HACKATHON-\source\object\character\player;$(SolutionDir)\2021-3-26_Spring-HACKATHON-\source\object\character;$(SolutionDir)\2021-3-26_Spring-HACKATHON-\source\object;$(SolutionDir)\2021-3-26_Spring-HACKATHON-\source\input;$(SolutionDir)\2021-3-26_Spring-HACKATHON-\source\game;$(SolutionDir)\2021-3-26_Spring-HACKATHON-\source\debug_font;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -163,7 +165,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\2021-3-26_Spring-HACKATHON-\source\system;$(SolutionDir)\2021-3-26_Spring-HACKATHON-\source\renderer;$(SolutionDir)\2021-3-26_Spring-HACKATHON-\source\out_game;$(SolutionDir)\2021-3-26_Spring-HACKATHON-\source\object\item;$(SolutionDir)\2021-3-26_Spring-HACKATHON-\source\object\character\enemy;$(SolutionDir)\2021-3-26_Spring-HACKATHON-\source\object\character\player;$(SolutionDir)\2021-3-26_Spring-HACKATHON-\source\object\character;$(SolutionDir)\2021-3-26_Spring-HACKATHON-\source\object;$(SolutionDir)\2021-3-26_Spring-HACKATHON-\source\input;$(SolutionDir)\2021-3-26_Spring-HACKATHON-\source\game;$(SolutionDir)\2021-3-26_Spring-HACKATHON-\source\debug_font;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

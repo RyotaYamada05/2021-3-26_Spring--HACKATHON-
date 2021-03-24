@@ -12,6 +12,7 @@
 #include "sound.h"
 #include "debugfont.h"
 #include "player.h"
+#include "item.h"
 //=============================================================================
 //静的メンバ変数宣言
 //=============================================================================
@@ -89,9 +90,7 @@ void CGame::Uninit(void)
 //ゲームクラスの更新処理
 //=============================================================================
 void CGame::Update(void)
-{
-	CDebugFont::Print(CDebugFont::DEBUG_LAYER_LEFT, "ゲームクラスの更新\n");
-	
+{	
 	switch (m_state)
 	{
 	case GAME_STATE_NOMRAL:
