@@ -13,6 +13,8 @@
 #include "debugfont.h"
 #include "player.h"
 #include "item.h"
+#include "enemy.h"
+
 //=============================================================================
 //Ã“Iƒƒ“ƒo•Ï”éŒ¾
 //=============================================================================
@@ -73,7 +75,13 @@ HRESULT CGame::Init(void)
 	//BGM‚ÌÄ¶
 	CManager::GetSound()->Play(CSound::SOUND_LABEL_BGM_GAME);
 	
-	CPlayer::Create(SCREEN_CENTER_POS, D3DXVECTOR3(200.0f, 200.0f, 0.0f));
+	CPlayer::Create(SCREEN_CENTER_POS, D3DXVECTOR3(50.0f, 50.0f, 0.0f));
+
+	CItem::Create(D3DXVECTOR3(200.0f, 200.0f, 0.0f), ITEM_SIZE);
+
+	CEnemy::Create(D3DXVECTOR3(500.0f, 200.0f, 0.0f), ITEM_SIZE, CEnemy::ENEMY_TYPE_NOMRL);
+
+	CEnemy::Create(D3DXVECTOR3(900.0f, 500.0f, 0.0f), ITEM_SIZE, CEnemy::ENEMY_TYPE_NOMRL2);
 	return S_OK;
 }
 

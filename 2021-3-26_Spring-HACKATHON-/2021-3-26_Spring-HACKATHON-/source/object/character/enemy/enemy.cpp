@@ -1,70 +1,80 @@
 //=============================================================================
 //
-// アイテム処理 [item.cpp]
+// エネミー処理 [enemy.cpp]
 // Author : 山田陵太
 //
 //=============================================================================
-#include "item.h"
+#include "enemy.h"
+#include "enemy2.h"
 #include "player.h"
 
 //=============================================================================
-//アイテムクラスのコンストラクタ
+//エネミークラスのコンストラクタ
 //=============================================================================
-CItem::CItem()
+CEnemy::CEnemy(int nPriority) : CCharacter(nPriority)
 {
 }
 
 //=============================================================================
-//アイテムクラスのデストラクタ
+//エネミークラスのデストラクタ
 //=============================================================================
-CItem::~CItem()
+CEnemy::~CEnemy()
 {
 }
 
 //=============================================================================
-//アイテムクラスのクリエイト処理
+//エネミークラスのクリエイト処理
 //=============================================================================
-CItem * CItem::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
+CEnemy * CEnemy::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, ENEMY_TYPE type)
 {
-	CItem *pItem = new CItem;
+	CEnemy *pEnemy = NULL;
 
-	if (pItem)
+	switch (type)
 	{
-		pItem->SetPos(pos);
-		pItem->SetSize(size);
-		pItem->Init();
+	case ENEMY_TYPE_NOMRL:
+		pEnemy = new CEnemy;
+		break;
+
+	case ENEMY_TYPE_NOMRL2:
+		pEnemy = new CEnemy2;
+		break;
+	default:
+		break;
 	}
-	return pItem;
+	
+	if (pEnemy)
+	{
+		pEnemy->SetPos(pos);
+		pEnemy->SetSize(size);
+		pEnemy->Init();
+	}
+	return NULL;
 }
 
 //=============================================================================
-//アイテムクラスの初期化処理
+//エネミークラスの初期化処理
 //=============================================================================
-HRESULT CItem::Init(void)
+HRESULT CEnemy::Init(void)
 {
-	//CScene2Dの初期化
 	CScene2D::Init();
-	SetColor(COLOR_BLUE);
+	SetColor(COLOR_YELLOW);
 	return S_OK;
 }
 
 //=============================================================================
-//アイテムクラスの終了処理
+//エネミークラスの終了処理
 //=============================================================================
-void CItem::Uninit(void)
+void CEnemy::Uninit(void)
 {
-	//CScene2Dの終了
 	CScene2D::Uninit();
 }
 
 //=============================================================================
-//アイテムクラスの更新処理
+//エネミークラスの更新処理
 //=============================================================================
-void CItem::Update(void)
+void CEnemy::Update(void)
 {
-	//CScene2Dの更新
 	CScene2D::Update();
-
 	CPlayer *pPlayer = NULL;
 
 	//プレイヤーとの当たり判定
@@ -72,19 +82,31 @@ void CItem::Update(void)
 
 	if (pPlayer)
 	{
-		//体力を回復させる
-		pPlayer->AddLife(20);
+		SetState(CHARACTER_STATE_DIED);
+	}
 
-		//終了する
-		Uninit();
+	//状態判定処理
+	CHARACTER_STATE charaState = CheckState();
+	
+	if (STATE_DEATH(charaState))
+	{//死んでいた場合
+		return;
 	}
 }
 
 //=============================================================================
-//アイテムクラスの描画処理
+//エネミークラスの描画処理
 //=============================================================================
-void CItem::Draw(void)
+void CEnemy::Draw(void)
 {
-	//CScene2Dの描画
 	CScene2D::Draw();
+}
+
+//=============================================================================
+//エネミークラスの死亡処理
+//死亡時に一回だけ行いたい処理をここに記述
+//=============================================================================
+void CEnemy::DiedProcess(void)
+{
+	Uninit();
 }

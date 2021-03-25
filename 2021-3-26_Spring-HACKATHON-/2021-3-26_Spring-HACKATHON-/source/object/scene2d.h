@@ -4,8 +4,8 @@
 // Author : 山田陵太
 //
 //=============================================================================
-#ifndef _SCENE2D_H
-#define _SCENE2D_H
+#ifndef _SCENE2D_H_
+#define _SCENE2D_H_
 
 //=============================================================================
 //インクルードファイル
@@ -53,7 +53,6 @@ public:
 	virtual void Draw(void);
 	static CScene2D *JudgeCollision(CScene::OBJTYPE objtype, D3DXVECTOR3 pos, D3DXVECTOR3 size);
 
-	void VertexUpdate(void);
 	void SetPos(const D3DXVECTOR3 pos);
 	D3DXVECTOR3 GetPos(void)const;
 	void SetSize(const D3DXVECTOR3 size);
@@ -63,6 +62,8 @@ public:
 	void BindTexture(const LPDIRECT3DTEXTURE9 pTexture);
 	
 private:
+	void VertexUpdate(void);
+
 	//=========================================================================
 	//メンバ変数宣言
 	//=========================================================================

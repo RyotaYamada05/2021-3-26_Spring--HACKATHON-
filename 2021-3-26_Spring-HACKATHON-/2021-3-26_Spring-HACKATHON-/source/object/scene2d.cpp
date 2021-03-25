@@ -203,33 +203,6 @@ CScene2D *CScene2D::JudgeCollision(CScene::OBJTYPE objtype, D3DXVECTOR3 pos, D3D
 }
 
 //=============================================================================
-//2Dポリゴンクラスの頂点更新処理
-//=============================================================================
-void CScene2D::VertexUpdate(void)
-{
-	//頂点情報へのポインタ
-	VERTEX_2D *pVtx;
-
-	//頂点データをロックし、頂点バッファへのポインタ取得
-	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
-
-	// 頂点情報を更新
-	pVtx[0].pos = D3DXVECTOR3(m_pos.x - (m_size.x / 2), m_pos.y - (m_size.y / 2), 0.0f);
-	pVtx[1].pos = D3DXVECTOR3(m_pos.x + (m_size.x / 2), m_pos.y - (m_size.y / 2), 0.0f);
-	pVtx[2].pos = D3DXVECTOR3(m_pos.x - (m_size.x / 2), m_pos.y + (m_size.y / 2), 0.0f);
-	pVtx[3].pos = D3DXVECTOR3(m_pos.x + (m_size.x / 2), m_pos.y + (m_size.y / 2), 0.0f);
-
-	//色の設定
-	pVtx[0].col = m_col;
-	pVtx[1].col = m_col;
-	pVtx[2].col = m_col;
-	pVtx[3].col = m_col;
-
-	// 頂点バッファをアンロックする
-	m_pVtxBuff->Unlock();
-}
-
-//=============================================================================
 //2Dポリゴンクラスの位置設定処理
 //=============================================================================
 void CScene2D::SetPos(const D3DXVECTOR3 pos)
@@ -297,4 +270,31 @@ void CScene2D::SetColor(const D3DXCOLOR col)
 void CScene2D::BindTexture(const LPDIRECT3DTEXTURE9 pTexture)
 {
 	m_pTexture = pTexture;
+}
+
+//=============================================================================
+//2Dポリゴンクラスの頂点更新処理
+//=============================================================================
+void CScene2D::VertexUpdate(void)
+{
+	//頂点情報へのポインタ
+	VERTEX_2D *pVtx;
+
+	//頂点データをロックし、頂点バッファへのポインタ取得
+	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
+
+	// 頂点情報を更新
+	pVtx[0].pos = D3DXVECTOR3(m_pos.x - (m_size.x / 2), m_pos.y - (m_size.y / 2), 0.0f);
+	pVtx[1].pos = D3DXVECTOR3(m_pos.x + (m_size.x / 2), m_pos.y - (m_size.y / 2), 0.0f);
+	pVtx[2].pos = D3DXVECTOR3(m_pos.x - (m_size.x / 2), m_pos.y + (m_size.y / 2), 0.0f);
+	pVtx[3].pos = D3DXVECTOR3(m_pos.x + (m_size.x / 2), m_pos.y + (m_size.y / 2), 0.0f);
+
+	//色の設定
+	pVtx[0].col = m_col;
+	pVtx[1].col = m_col;
+	pVtx[2].col = m_col;
+	pVtx[3].col = m_col;
+
+	// 頂点バッファをアンロックする
+	m_pVtxBuff->Unlock();
 }

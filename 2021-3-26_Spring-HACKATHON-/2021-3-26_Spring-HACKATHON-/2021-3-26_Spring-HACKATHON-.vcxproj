@@ -27,6 +27,8 @@
     <ClCompile Include="source\input\joystick.cpp" />
     <ClCompile Include="source\input\keyboard.cpp" />
     <ClCompile Include="source\object\character\character.cpp" />
+    <ClCompile Include="source\object\character\enemy\enemy.cpp" />
+    <ClCompile Include="source\object\character\enemy\enemy2.cpp" />
     <ClCompile Include="source\object\character\player\player.cpp" />
     <ClCompile Include="source\object\item\item.cpp" />
     <ClCompile Include="source\object\polygon.cpp" />
@@ -48,6 +50,8 @@
     <ClInclude Include="source\input\joystick.h" />
     <ClInclude Include="source\input\keyboard.h" />
     <ClInclude Include="source\object\character\character.h" />
+    <ClInclude Include="source\object\character\enemy\enemy.h" />
+    <ClInclude Include="source\object\character\enemy\enemy2.h" />
     <ClInclude Include="source\object\character\player\player.h" />
     <ClInclude Include="source\object\item\item.h" />
     <ClInclude Include="source\object\polygon.h" />

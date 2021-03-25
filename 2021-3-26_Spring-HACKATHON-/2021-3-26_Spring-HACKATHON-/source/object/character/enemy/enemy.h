@@ -1,11 +1,11 @@
 //=============================================================================
 //
-// プレイヤー処理 [player.h]
+// エネミー処理 [enemy.h]
 // Author : 山田陵太
 //
 //=============================================================================
-#ifndef _PLAYER_H_
-#define _PLAYER_H_
+#ifndef _ENEMY_H_
+#define _ENEMY_H_
 
 //=============================================================================
 //インクルードファイル
@@ -13,35 +13,31 @@
 #include "character.h"
 
 //=============================================================================
-//プレイヤークラス
+//エネミークラス
 //=============================================================================
-class CPlayer :public CCharacter
+class CEnemy : public CCharacter
 {
 public:
+	typedef enum
+	{
+		ENEMY_TYPE_NOMRL = 0,
+		ENEMY_TYPE_NOMRL2,
+	}ENEMY_TYPE;
+
 	//=========================================================================
 	//メンバ関数宣言
 	//=========================================================================
-	CPlayer(int nPriority = PRIORITY_PLAYER);
-	~CPlayer();
+	CEnemy(int nPriority = PRIORITY_ENEMY);
+	~CEnemy();
 
-	static CPlayer *Create(D3DXVECTOR3 pos, D3DXVECTOR3 size);
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+	static CEnemy *Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, ENEMY_TYPE type);
 
-	void Move(void);
-	void Damage(const int nDamage);
-	void Recovery(const int nRecovery);
+	virtual HRESULT Init(void);
+	virtual void Uninit(void);
+	virtual void Update(void);
+	virtual void Draw(void);
+
 	void DiedProcess(void);
-
-#ifdef _DEBUG
-	void DebugDataPrint(void);
-#endif
 private:
-	//=========================================================================
-	//メンバ変数宣言
-	//=========================================================================
-	D3DXVECTOR3 m_move;	//移動量
 };
-#endif // !_PLAYER_H_
+#endif // !_ENEMY_H_
