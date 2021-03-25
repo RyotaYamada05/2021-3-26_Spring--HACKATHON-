@@ -18,6 +18,9 @@
 class CEnemy : public CCharacter
 {
 public:
+	//=========================================================================
+	//敵の種類
+	//=========================================================================
 	typedef enum
 	{
 		ENEMY_TYPE_NOMRL = 0,
@@ -25,19 +28,30 @@ public:
 	}ENEMY_TYPE;
 
 	//=========================================================================
+	//エネミーの死亡時の処理情報
+	//=========================================================================
+	typedef enum
+	{
+		DEATH_ACTION_NOEN = 0,
+		DEATH_ACTION_LIFE,	//死亡時に回復アイテムを生成する
+	}DEATH_ACTION;
+
+	//=========================================================================
 	//メンバ関数宣言
 	//=========================================================================
 	CEnemy(int nPriority = PRIORITY_ENEMY);
 	~CEnemy();
 
-	static CEnemy *Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, ENEMY_TYPE type);
+	static CEnemy *Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, ENEMY_TYPE type, DEATH_ACTION deathAction = DEATH_ACTION_NOEN);
 
-	virtual HRESULT Init(void);
-	virtual void Uninit(void);
-	virtual void Update(void);
-	virtual void Draw(void);
+	HRESULT Init(void);
+	void Uninit(void);
+	void Update(void);
+	void Draw(void);
 
 	void DiedProcess(void);
+	void SetDeathAction(DEATH_ACTION deathAction);
 private:
+	DEATH_ACTION m_DeathAction;	//死亡処理の変数
 };
 #endif // !_ENEMY_H_

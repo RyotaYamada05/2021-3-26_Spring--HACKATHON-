@@ -7,6 +7,7 @@
 #include "enemy.h"
 #include "enemy2.h"
 #include "player.h"
+#include "item.h"
 
 //=============================================================================
 //エネミークラスのコンストラクタ
@@ -25,7 +26,7 @@ CEnemy::~CEnemy()
 //=============================================================================
 //エネミークラスのクリエイト処理
 //=============================================================================
-CEnemy * CEnemy::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, ENEMY_TYPE type)
+CEnemy * CEnemy::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, ENEMY_TYPE type, DEATH_ACTION deathAction)
 {
 	CEnemy *pEnemy = NULL;
 
@@ -46,9 +47,15 @@ CEnemy * CEnemy::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, ENEMY_TYPE type)
 	{
 		pEnemy->SetPos(pos);
 		pEnemy->SetSize(size);
+		pEnemy->SetDeathAction(deathAction);
 		pEnemy->Init();
+
 	}
-	return NULL;
+	else
+	{
+		return NULL;
+	}
+	return pEnemy;
 }
 
 //=============================================================================
@@ -57,6 +64,10 @@ CEnemy * CEnemy::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, ENEMY_TYPE type)
 HRESULT CEnemy::Init(void)
 {
 	CScene2D::Init();
+
+	//オブジェクトタイプの設定
+	SetObjType(CScene::OBJTYPE_ENEMY);
+
 	SetColor(COLOR_YELLOW);
 	return S_OK;
 }
@@ -108,5 +119,23 @@ void CEnemy::Draw(void)
 //=============================================================================
 void CEnemy::DiedProcess(void)
 {
+	switch (m_DeathAction)
+	{
+	case DEATH_ACTION_LIFE:
+		CItem::Create(GetPos(),ITEM_SIZE);
+		break;
+
+	default:
+		break;
+	}
+	//終了処理
 	Uninit();
+}
+
+//=============================================================================
+//死亡時処理変数の設定
+//=============================================================================
+void CEnemy::SetDeathAction(DEATH_ACTION deathAction)
+{
+	m_DeathAction = deathAction;
 }

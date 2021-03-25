@@ -34,6 +34,10 @@ CItem * CItem::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 		pItem->SetSize(size);
 		pItem->Init();
 	}
+	else
+	{
+		return NULL;
+	}
 	return pItem;
 }
 
@@ -44,6 +48,7 @@ HRESULT CItem::Init(void)
 {
 	//CScene2D‚Ì‰Šú‰»
 	CScene2D::Init();
+
 	SetColor(COLOR_BLUE);
 	return S_OK;
 }
@@ -74,7 +79,7 @@ void CItem::Update(void)
 	{
 		//‘Ì—Í‚ğ‰ñ•œ‚³‚¹‚é
 		pPlayer->AddLife(20);
-
+		pPlayer->AddItemCount();
 		//I—¹‚·‚é
 		Uninit();
 	}

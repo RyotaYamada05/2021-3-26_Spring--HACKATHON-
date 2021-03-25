@@ -76,6 +76,7 @@ private:
 	static CResult *m_pResult;		//リザルトクラスのポインタ変数
 	static CFade *m_pFade;		//フェードクラスのポインタ変数
 	static CInputJoyStick *m_pJoyStick;	//ジョイスティッククラスのポインタ変数
+	
 };
 
 #endif

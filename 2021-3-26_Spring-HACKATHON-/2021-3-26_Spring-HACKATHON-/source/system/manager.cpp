@@ -21,6 +21,7 @@
 #include "title.h"
 #include "result.h"
 #include "polygon.h"
+#include "number.h"
 
 //=============================================================================
 //静的メンバ変数宣言
@@ -106,7 +107,8 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, bool bWindow)
 	LoadAll();
 
 	////タイトルクラスの生成
-	SetMode(MODE_TYPE_RESULT);
+	SetMode(MODE_TYPE_TITLE);
+
 	//フェードクラスの生成
 	m_pFade = CFade::Create();
 
@@ -161,6 +163,7 @@ void CManager::Uninit(void)
 
 	//全テクスチャの破棄
 	UnLoadAll();
+
 
 	if (m_pSound)
 	{
@@ -269,12 +272,12 @@ void CManager::Draw(void)
 //=============================================================================
 void CManager::LoadAll(void)
 {
-	
+	//ポリゴンクラスのテクスチャ読み込み
 	CPolygon::Load();
 	//背景クラスのテクスチャ読み込み
 	CBg::Load();
-
-	
+	//ナンバークラスのテクスチャ読み込み
+	CNumber::Load();
 }
 
 //=============================================================================
@@ -282,11 +285,14 @@ void CManager::LoadAll(void)
 //=============================================================================
 void CManager::UnLoadAll(void)
 {
+	//ナンバークラスのテクスチャ破棄
+	CNumber::UnLoad();
 	//背景クラスのテクスチャ破棄
 	CBg::UnLoad();
+	//ポリゴンクラスのテクスチャ破棄
 	CPolygon::UnLoad();
-	
 }
+
 //=============================================================================
 //モードの設定処理
 //=============================================================================

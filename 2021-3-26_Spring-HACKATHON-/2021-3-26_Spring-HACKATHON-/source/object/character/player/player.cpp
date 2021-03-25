@@ -8,7 +8,7 @@
 #include "manager.h"
 #include "keyboard.h"
 #include "debugfont.h"
-#include "fade.h"
+#include "game.h"
 
 //=============================================================================
 //マクロ定義
@@ -23,6 +23,7 @@
 CPlayer::CPlayer(int nPriority):CCharacter(nPriority)
 {
 	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_nItemCount = 0;
 }
 
 //=============================================================================
@@ -54,7 +55,7 @@ CPlayer * CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 //=============================================================================
 HRESULT CPlayer::Init(void)
 {
-	//体力の設定
+	//体力の設定（初期化では現在ライフも最大と同値で初期化する）
 	SetMaxLife(MAX_PLAYER_LIFE);
 	SetLife(MAX_PLAYER_LIFE);
 
@@ -62,7 +63,8 @@ HRESULT CPlayer::Init(void)
 	CScene2D::Init();
 
 	//オブジェクトタイプの設定
-	CScene::SetObjType(CScene::OBJTYPE_PLAYER);
+	SetObjType(CScene::OBJTYPE_PLAYER);
+
 	return S_OK;
 }
 
@@ -158,8 +160,39 @@ void CPlayer::Move(void)
 	//位置に移動量を与える
 	pos += m_move;
 
+	//移動制限
+	MoveLimit(&pos);
+
 	//位置を設定
 	SetPos(pos);
+}
+
+//=============================================================================
+//プレイヤークラスの移動範囲の制限処理
+//=============================================================================
+void CPlayer::MoveLimit(D3DXVECTOR3 *pPos)
+{
+	//サイズの取得
+	D3DXVECTOR3 size = GetSize();
+
+	
+	//プレイヤーが画面外へ行かないようにする処理
+	if (pPos->x + (size.x / 2) >= SCREEN_WIDTH)
+	{
+		pPos->x = SCREEN_WIDTH - (size.x / 2);
+	}
+	if (pPos->x - (size.x / 2) <= 0)
+	{
+		pPos->x = 0 + size.x / 2;
+	}
+	if (pPos->y + (size.y / 2) >= SCREEN_HEIGHT)
+	{
+		pPos->y = SCREEN_HEIGHT - (size.y / 2);
+	}
+	if (pPos->y - (size.y / 2) <= 0)
+	{
+		pPos->y = 0 + size.y / 2;
+	}
 }
 
 //=============================================================================
@@ -203,8 +236,16 @@ void CPlayer::DiedProcess(void)
 	//終了処理
 	Uninit();
 
-	//リザルトへ移行
-	CManager::GetFade()->SetFade(CManager::MODE_TYPE_RESULT);
+	//ゲームモードをゲームオーバー状態へ移行
+	CGame::SetGameState(CGame::GAME_STATE_GAME_OVER);
+}
+
+//=============================================================================
+//プレイヤークラスのアイテム取得数の加算処理
+//=============================================================================
+void CPlayer::AddItemCount(void)
+{
+	m_nItemCount++;
 }
 
 #ifdef _DEBUG
@@ -218,5 +259,6 @@ void CPlayer::DebugDataPrint(void)
 	CDebugFont::Print(CDebugFont::DEBUG_LAYER_LEFT, "プレイヤーの最大HP:%d\n", GetMaxLife());
 	CDebugFont::Print(CDebugFont::DEBUG_LAYER_LEFT, "プレイヤーの位置X:%0.2f\n", GetPos().x);
 	CDebugFont::Print(CDebugFont::DEBUG_LAYER_LEFT, "プレイヤーの位置Y:%0.2f\n", GetPos().y);
+	CDebugFont::Print(CDebugFont::DEBUG_LAYER_LEFT, "プレイヤーのアイテム取得数:%d\n", m_nItemCount);
 }
 #endif

@@ -1,50 +1,41 @@
 //=============================================================================
 //
-// プレイヤー処理 [player.h]
+// UI処理 [ui.h]
 // Author : 山田陵太
 //
 //=============================================================================
-#ifndef _PLAYER_H_
-#define _PLAYER_H_
+#ifndef _UI_H_
+#define _UI_H_
 
 //=============================================================================
 //インクルードファイル
 //=============================================================================
-#include "character.h"
+#include "main.h"
 
 //=============================================================================
-//プレイヤークラス
+//前方宣言
 //=============================================================================
-class CPlayer :public CCharacter
+class CScore;
+
+//=============================================================================
+//UIクラスの
+//=============================================================================
+class CUi
 {
 public:
 	//=========================================================================
 	//メンバ関数宣言
 	//=========================================================================
-	CPlayer(int nPriority = PRIORITY_PLAYER);
-	~CPlayer();
+	CUi();
+	~CUi();
 
-	static CPlayer *Create(D3DXVECTOR3 pos, D3DXVECTOR3 size);
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
 
-	void Move(void);
-	void MoveLimit(D3DXVECTOR3 *pPos);
-	void Damage(const int nDamage);
-	void Recovery(const int nRecovery);
-	void DiedProcess(void);
-
-	void AddItemCount(void);
-#ifdef _DEBUG
-	void DebugDataPrint(void);
-#endif
+	static CScore *GetScore(void);
 private:
-	//=========================================================================
-	//メンバ変数宣言
-	//=========================================================================
-	D3DXVECTOR3 m_move;	//移動量
-	int m_nItemCount;	//アイテム取得数
+	static CScore *pScore;	//スコアのポインタ変数
 };
-#endif // !_PLAYER_H_
+#endif // !_ENEMY_H_
