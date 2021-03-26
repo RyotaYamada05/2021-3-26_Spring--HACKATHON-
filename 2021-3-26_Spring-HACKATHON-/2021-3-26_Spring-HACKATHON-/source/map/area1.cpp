@@ -26,8 +26,8 @@ CArea1::~CArea1()
 HRESULT CArea1::Init(CMap::MAP_AREA m_Area_Type)
 {
 	CAreaBase::Init(m_Area_Type);
-	m_pPolygon[0] = CPolygon::Create(D3DXVECTOR3(SCREEN_WIDTH, SCREEN_HEIGHT / 2, 0.0f), D3DXVECTOR3(200.0f, 200.0f, 0.0f), CPolygon::TEX_TYPE_DOOR);
-	m_pPolygon[1] = CPolygon::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT, 0.0f), D3DXVECTOR3(200.0f, 200.0f, 0.0f), CPolygon::TEX_TYPE_DOOR);
+	m_pPolygon[0] = CPolygon::Create(D3DXVECTOR3(SCREEN_WIDTH -100.0f/2, SCREEN_HEIGHT / 2, 0.0f), D3DXVECTOR3(100.0f, 100.0f, 0.0f), CPolygon::TEX_TYPE_DOOR_RGIHT);
+	m_pPolygon[1] = CPolygon::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 100.0f / 2, 0.0f), D3DXVECTOR3(100.0f, 100.0f, 0.0f), CPolygon::TEX_TYPE_DOOR_UNDER);
 	
 	//アイテムの生成
 	CItem::Create(D3DXVECTOR3(200.0f, 200.0f, 0.0f), ITEM_SIZE, CItem::ITEM_DIAMOND);
@@ -47,7 +47,6 @@ void CArea1::Uninit(void)
 
 void CArea1::Update(void)
 {
-	CDebugFont::Print(CDebugFont::DEBUG_LAYER_RIGHT, "AREA１クラス\n");
 	
 	if (CMap::GetIndex() == m_Area_Type)
 	{
@@ -66,6 +65,7 @@ void CArea1::Update(void)
 			}
 		}
 	}
+
 	CAreaBase::Update();
 
 }

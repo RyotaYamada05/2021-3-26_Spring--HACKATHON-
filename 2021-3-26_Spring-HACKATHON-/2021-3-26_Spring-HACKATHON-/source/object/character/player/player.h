@@ -25,6 +25,8 @@ public:
 	~CPlayer();
 
 	static CPlayer *Create(D3DXVECTOR3 pos, D3DXVECTOR3 size);
+	static HRESULT Load(void);
+	static void UnLoad(void);
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
@@ -46,6 +48,7 @@ private:
 	//=========================================================================
 	//メンバ変数宣言
 	//=========================================================================
+	static LPDIRECT3DTEXTURE9 m_pTexture;	//テクスチャへのポインタ
 	D3DXVECTOR3 m_move;	//移動量
 	int m_nItemCount;	//アイテム取得数
 	int m_nCount;

@@ -23,6 +23,7 @@
 #include "result.h"
 #include "polygon.h"
 #include "number.h"
+#include "player.h"
 #include "dollar.h"
 
 //=============================================================================
@@ -283,6 +284,8 @@ void CManager::LoadAll(void)
 	//ナンバークラスのテクスチャ読み込み
 	CNumber::Load();
 
+	CPlayer::Load();
+
 	CDollar::Load();
 }
 
@@ -291,6 +294,7 @@ void CManager::LoadAll(void)
 //=============================================================================
 void CManager::UnLoadAll(void)
 {
+	CPlayer::UnLoad();
 	//ナンバークラスのテクスチャ破棄
 	CNumber::UnLoad();
 	//背景クラスのテクスチャ破棄
