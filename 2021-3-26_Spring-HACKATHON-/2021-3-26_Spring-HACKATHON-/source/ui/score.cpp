@@ -4,6 +4,10 @@
 // Author : 山田陵太
 //
 //=============================================================================
+
+//=============================================================================
+// インクルードファイル
+//=============================================================================
 #include "score.h"
 #include "number.h"
 #include "scene2d.h"
@@ -21,6 +25,7 @@ CScore::CScore(int nPriority) :CScene(nPriority)
 	//各メンバ変数のクリア
 	memset(m_apNumber, 0, sizeof(m_apNumber));
 	m_nAddScore = 0;
+	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 }
 
 //=============================================================================
@@ -33,7 +38,7 @@ CScore::~CScore()
 //=============================================================================
 //スコアクラスのクリエイト処理
 //=============================================================================
-CScore * CScore::Create(void)
+CScore * CScore::Create(D3DXVECTOR3 pos)
 {
 	//スコアクラスのポインタ変数
 	CScore *pScore = NULL;
@@ -44,6 +49,7 @@ CScore * CScore::Create(void)
 	//メモリが確保できていたら
 	if (pScore)
 	{
+		pScore->m_pos = pos;
 		//初期化処理呼び出し
 		pScore->Init();
 	}
@@ -61,16 +67,15 @@ CScore * CScore::Create(void)
 //=============================================================================
 HRESULT CScore::Init(void)
 {
-	m_nScore = 0;
-
 	//ナンバークラスをSCORE_MAX_NUM分生成
-	m_apNumber[0] = CNumber::Create(0, CNumber::NUMBER_TYPE_000,	//表示する数字と種類
-		D3DXVECTOR3((SCREEN_WIDTH - NUMBER_SIZE_X) + (NUMBER_SIZE_X / 2),		//x軸の位置
-		(NUMBER_SIZE_Y / 2), //yの位置
+	m_apNumber[0] = CNumber::Create(0, CNumber::NUMBER_TYPE_002,	//表示する数字と種類
+		D3DXVECTOR3((m_pos.x - SCORE_SIZE.x) + (SCORE_SIZE.x / 2),		//x軸の位置
+			m_pos.y + (SCORE_SIZE.y / 2), //yの位置
 			0.0f),	//zの位置
-		NUMBER_SIZE, COLOR_WHITE);	//サイズと色
+		SCORE_SIZE, COLOR_WHITE);	//サイズと色
 
 	return S_OK;
+
 }
 
 //=============================================================================
@@ -121,11 +126,11 @@ void CScore::Update(void)
 
 		if (!m_apNumber[(int)fIndex] && nAnswer > 0)
 		{
-			m_apNumber[(int)fIndex] = CNumber::Create(0, CNumber::NUMBER_TYPE_000,	//表示する数字と種類
-				D3DXVECTOR3((SCREEN_WIDTH) - ((fIndex * NUMBER_SIZE_X) + (NUMBER_SIZE_X / 2)),		//x軸の位置
-				(NUMBER_SIZE_Y / 2), //yの位置
+			m_apNumber[(int)fIndex] = CNumber::Create(0, CNumber::NUMBER_TYPE_002,	//表示する数字と種類
+				D3DXVECTOR3((m_pos.x) - ((fIndex * SCORE_SIZE.x) + (SCORE_SIZE.x / 2)),		//x軸の位置
+					m_pos.y + (SCORE_SIZE.y / 2), //yの位置
 					0.0f),	//zの位置
-				NUMBER_SIZE, COLOR_WHITE);	//サイズと色
+				SCORE_SIZE, COLOR_WHITE);	//サイズと色
 		}
 
 		if (m_apNumber[(int)fIndex])

@@ -1,46 +1,56 @@
 //=============================================================================
 //
-// UI処理 [ui.h]
+// 背景処理 [dollar.h]
 // Author : 山田陵太
 //
 //=============================================================================
-#ifndef _UI_H_
-#define _UI_H_
+#ifndef _DOLLAR_H_
+#define _DOLLAR_H_
 
 //=============================================================================
 //インクルードファイル
 //=============================================================================
-#include "main.h"
+#include "scene.h"
+
+//=============================================================================
+//マクロ定義
+//=============================================================================
+#define DOLLAR_SIZE D3DXVECTOR3(44.5f, 65.0f, 0.0f)	//背景サイズ
 
 //=============================================================================
 //前方宣言
 //=============================================================================
-class CScore;
-class CTime;
-class CDollar;
+class CScene2D;
 
 //=============================================================================
-//UIクラスの
+//背景クラス
 //=============================================================================
-class CUi
+class CDollar : public CScene
 {
 public:
 	//=========================================================================
 	//メンバ関数宣言
 	//=========================================================================
-	CUi();
-	~CUi();
+	CDollar(int nPriority = CScene::PRIORITY_BG);
+	~CDollar();
+
+	static CDollar *Create(const D3DXVECTOR3 pos,
+		const D3DXVECTOR3 size = DOLLAR_SIZE);
+	static HRESULT Load(void);
+	static void UnLoad(void);
 
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
 
-	static CScore *GetScore(void);
-	static CTime * GetTime(void);
+	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }
 private:
-	static CScore *pScore;	//スコアのポインタ変数
-	static CTime *pTime;	//タイムのポインタ変数
-	CDollar *m_pDllar;
+	//=========================================================================
+	//メンバ変数宣言
+	//=========================================================================
+	static LPDIRECT3DTEXTURE9 m_apTexture;
+	CScene2D *m_pScene2D;
+	D3DXVECTOR3 m_pos;
 };
-#endif // !_ENEMY_H_
+#endif

@@ -23,6 +23,7 @@
     <ClCompile Include="source\game\bg.cpp" />
     <ClCompile Include="source\game\fade.cpp" />
     <ClCompile Include="source\game\game.cpp" />
+    <ClCompile Include="source\game\ranking.cpp" />
     <ClCompile Include="source\input\input.cpp" />
     <ClCompile Include="source\input\joystick.cpp" />
     <ClCompile Include="source\input\keyboard.cpp" />
@@ -40,6 +41,7 @@
     <ClCompile Include="source\system\main.cpp" />
     <ClCompile Include="source\system\manager.cpp" />
     <ClCompile Include="source\system\sound.cpp" />
+    <ClCompile Include="source\ui\dollar.cpp" />
     <ClCompile Include="source\ui\number.cpp" />
     <ClCompile Include="source\ui\score.cpp" />
     <ClCompile Include="source\ui\time.cpp" />
@@ -50,6 +52,7 @@
     <ClInclude Include="source\game\bg.h" />
     <ClInclude Include="source\game\fade.h" />
     <ClInclude Include="source\game\game.h" />
+    <ClInclude Include="source\game\ranking.h" />
     <ClInclude Include="source\input\input.h" />
     <ClInclude Include="source\input\joystick.h" />
     <ClInclude Include="source\input\keyboard.h" />
@@ -67,6 +70,7 @@
     <ClInclude Include="source\system\main.h" />
     <ClInclude Include="source\system\manager.h" />
     <ClInclude Include="source\system\sound.h" />
+    <ClInclude Include="source\ui\dollar.h" />
     <ClInclude Include="source\ui\number.h" />
     <ClInclude Include="source\ui\score.h" />
     <ClInclude Include="source\ui\time.h" />

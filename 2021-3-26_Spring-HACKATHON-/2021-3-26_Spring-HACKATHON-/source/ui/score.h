@@ -16,6 +16,7 @@
 //マクロ定義
 //=============================================================================
 #define SCORE_MAX_NUM 8	//スコアの最大桁数
+#define SCORE_SIZE (D3DXVECTOR3(70.0f,64.0f,0.0f)) 
 
 //=============================================================================
 //前方宣言
@@ -34,13 +35,16 @@ public:
 	CScore(int nPriority = CScene::PRIORITY_UI);
 	~CScore();
 
-	static CScore *Create(void);
+	static CScore *Create(D3DXVECTOR3 pos);
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
 	void AddScore(const int nScore);
 	static int GetScore(void);
+	static void SetScore(int nNum) { m_nScore = nNum; }
+
+	CNumber *GetNumber(int nNum) { return m_apNumber[nNum]; }
 
 private:
 	//=========================================================================
@@ -49,5 +53,6 @@ private:
 	static int m_nScore;	// スコアの総数
 	int m_nAddScore;		// 加算用のスコア
 	CNumber *m_apNumber[SCORE_MAX_NUM];	// ナンバークラスポインタ
+	D3DXVECTOR3 m_pos;
 };
 #endif 
