@@ -24,6 +24,7 @@
 #include "polygon.h"
 #include "number.h"
 #include "player.h"
+#include "dollar.h"
 
 //=============================================================================
 //静的メンバ変数宣言
@@ -284,6 +285,8 @@ void CManager::LoadAll(void)
 	CNumber::Load();
 
 	CPlayer::Load();
+
+	CDollar::Load();
 }
 
 //=============================================================================
@@ -298,6 +301,8 @@ void CManager::UnLoadAll(void)
 	CBg::UnLoad();
 	//ポリゴンクラスのテクスチャ破棄
 	CPolygon::UnLoad();
+
+	CDollar::UnLoad();
 }
 
 //=============================================================================

@@ -13,15 +13,10 @@ CSound::PARAM CSound::m_aParam[SOUND_LABEL_MAX] =
 {
 	{ "data/Sound/SE/shot000.wav",SOUND_LOOP_OFF },			//発射音
 	{ "data/Sound/SE/explosion000.wav",SOUND_LOOP_OFF },	//爆発音
-	{ "data/Sound/SE/Determination.wav",SOUND_LOOP_OFF },	//エンターキー
-	{ "data/Sound/SE/Beam.wav",SOUND_LOOP_ON },				//ビーム音
-	{ "data/Sound/SE/Shiled.wav",SOUND_LOOP_OFF },			//ガード音
-	{ "data/Sound/SE/WarningSound.wav",SOUND_LOOP_OFF },	//警告音
-	{ "data/Sound/SE/GAME_CLEAR.wav",SOUND_LOOP_OFF },		//ゲームクリア音
-	{ "data/Sound/SE/GAME_OVER.wav",SOUND_LOOP_OFF },		//ゲームオーバー音
+	{ "data/Sound/SE/enter.wav",SOUND_LOOP_OFF },			//エンターキー
+	{ "data/Sound/SE/idouon.wav",SOUND_LOOP_ON },			//エリア移動
 	{ "data/Sound/BGM/Title.wav",SOUND_LOOP_ON },			//タイトル音
-	{ "data/Sound/BGM/BGM_GAME.wav",SOUND_LOOP_ON },		//GAMEBGM
-	{ "data/Sound/BGM/BGM_BOSS.wav",SOUND_LOOP_ON },		//ボス戦用BGM
+	{ "data/Sound/BGM/game.wav",SOUND_LOOP_ON },			//GAMEBGM
 };
 
 //=============================================================================

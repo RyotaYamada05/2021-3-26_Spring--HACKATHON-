@@ -70,6 +70,7 @@ HRESULT CNumber::Load(void)
 	//テクスチャの読み込み
 	D3DXCreateTextureFromFile(pD3DDevice, "data/Texture/Number/number000.png", &m_pTexture[NUMBER_TYPE_000]);
 	D3DXCreateTextureFromFile(pD3DDevice, "data/Texture/Number/number001.png", &m_pTexture[NUMBER_TYPE_001]);
+	D3DXCreateTextureFromFile(pD3DDevice, "data/Texture/Number/Score_0.png", &m_pTexture[NUMBER_TYPE_002]);
 
 	return S_OK;
 }
@@ -222,6 +223,29 @@ void CNumber::SetNumber(const int nNumber)
 	pVtx[1].tex = D3DXVECTOR2(m_nNumber * 0.1f + 0.1f, 0.0f);
 	pVtx[2].tex = D3DXVECTOR2(m_nNumber * 0.1f, 1.0f);
 	pVtx[3].tex = D3DXVECTOR2(m_nNumber * 0.1f + 0.1f, 1.0f);
+
+	//頂点バッファのアンロック
+	m_pVtxBuff->Unlock();
+}
+
+//=============================================================================
+//ナンバークラスの座標設定
+//=============================================================================
+void CNumber::SetPos(D3DXVECTOR3 pos)
+{
+	m_pos = pos;
+
+	//頂点情報へのポインタ
+	VERTEX_2D *pVtx;
+
+	//頂点データをロックし、頂点バッファへのポインタ取得
+	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
+
+	// 頂点情報を設定
+	pVtx[0].pos = D3DXVECTOR3(pos.x - (m_size.x / 2), pos.y - (m_size.y / 2), 0.0f);
+	pVtx[1].pos = D3DXVECTOR3(pos.x + (m_size.x / 2), pos.y - (m_size.y / 2), 0.0f);
+	pVtx[2].pos = D3DXVECTOR3(pos.x - (m_size.x / 2), pos.y + (m_size.y / 2), 0.0f);
+	pVtx[3].pos = D3DXVECTOR3(pos.x + (m_size.x / 2), pos.y + (m_size.y / 2), 0.0f);
 
 	//頂点バッファのアンロック
 	m_pVtxBuff->Unlock();

@@ -177,18 +177,55 @@ void CItem::Update(void)
 	}
 	else
 	{
-		m_nCounter++;
-		if (m_nCounter == 50)
+		if (m_Item == ITEM_DIAMOND)
 		{
-			float posX = (float)(100 + rand() % 900);
-			float posY = (float)(100 + rand() % 500);
+			m_nCounter++;
+			if (m_nCounter == 50)
+			{
+				float posX = (float)(100 + rand() % 900);
+				float posY = (float)(100 + rand() % 500);
 
-			SetPos(D3DXVECTOR3(posX, posY, 0.0f));
+				SetPos(D3DXVECTOR3(posX, posY, 0.0f));
+			}
+			if (m_nCounter >= 120)
+			{
+				m_nCounter = 0;
+				m_bflag = false;
+			}
 		}
-		if (m_nCounter >= 120)
+
+		if (m_Item == ITEM_TREASURE)
 		{
-			m_nCounter = 0;
-			m_bflag = false;
+			m_nCounter++;
+			if (m_nCounter == 50)
+			{
+				float posX = (float)(100 + rand() % 900);
+				float posY = (float)(100 + rand() % 500);
+
+				SetPos(D3DXVECTOR3(posX, posY, 0.0f));
+			}
+			if (m_nCounter >= 120)
+			{
+				m_nCounter = 0;
+				m_bflag = false;
+			}
+		}
+
+		if (m_Item == ITEM_TRAP)
+		{
+			m_nCounter++;
+			if (m_nCounter == 50)
+			{
+				float posX = (float)(100 + rand() % 900);
+				float posY = (float)(100 + rand() % 500);
+
+				SetPos(D3DXVECTOR3(posX, posY, 0.0f));
+			}
+			if (m_nCounter >= 120)
+			{
+				m_nCounter = 0;
+				m_bflag = false;
+			}
 		}
 	}
 }

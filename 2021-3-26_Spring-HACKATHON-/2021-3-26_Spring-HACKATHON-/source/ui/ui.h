@@ -17,6 +17,7 @@
 //=============================================================================
 class CScore;
 class CTime;
+class CDollar;
 
 //=============================================================================
 //UIクラスの
@@ -40,5 +41,6 @@ public:
 private:
 	static CScore *pScore;	//スコアのポインタ変数
 	static CTime *pTime;	//タイムのポインタ変数
+	CDollar *m_pDllar;
 };
 #endif // !_ENEMY_H_
