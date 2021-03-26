@@ -36,7 +36,7 @@ public:
 	void Recovery(const int nRecovery);
 	void DiedProcess(void);
 
-	void OnTrapFlag(void);
+	void OnTrapFlag(void) { m_bTrapFlag = true; } // トラップフラグon
 	void MoveSpeedDown(void);
 	void AddItemCount(void);
 #ifdef _DEBUG

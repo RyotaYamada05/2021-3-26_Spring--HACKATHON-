@@ -18,7 +18,7 @@
 #define MOVE_VALUE_DOWN 0.0f	//移動量ダウン
 #define INERTIA_CONSTANT 0.15f	//慣性の定数
 #define MAX_PLAYER_LIFE	50		//プレイヤーの最大体力
-#define COUNT_TIME 180
+#define COUNT_TIME 180			//止まる時間のカウント
 
 //=============================================================================
 //プレイヤークラスのコンストラクタ
@@ -87,11 +87,13 @@ void CPlayer::Uninit(void)
 //=============================================================================
 void CPlayer::Update(void)
 {
+	//false時
 	if (!m_bTrapFlag)
 	{
 		//移動処理
 		Move();
 	}
+	//true時
 	if (m_bTrapFlag)
 	{
 		m_nCount++;
@@ -257,11 +259,6 @@ void CPlayer::DiedProcess(void)
 
 	//ゲームモードをゲームオーバー状態へ移行
 	CGame::SetGameState(CGame::GAME_STATE_GAME_OVER);
-}
-
-void CPlayer::OnTrapFlag(void)
-{
-	m_bTrapFlag = true;
 }
 
 //=============================================================================
