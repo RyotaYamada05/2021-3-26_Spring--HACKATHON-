@@ -16,6 +16,8 @@
 #include "enemy.h"
 #include "ui.h"
 #include "polygon.h"
+#include "player.h"
+#include "map.h"
 
 //=============================================================================
 //マクロ定義
@@ -27,6 +29,8 @@
 //=============================================================================
 CGame::GAME_STATE CGame::m_state = CGame::GAME_STATE_NOMRAL;
 CPolygon * CGame::m_pPolygon = NULL;
+CPlayer * CGame::m_pPlayer = NULL;
+CBg * CGame::m_pBg = NULL;
 
 //=============================================================================
 //ゲームクラスのコンストラクタ
@@ -36,6 +40,7 @@ CGame::CGame(int nPriority) :CScene(nPriority)
 	m_nEnemyCounter = 0;
 	m_nStaeCounter = 0;
 	m_pUi = NULL;
+	m_pMap = NULL;
 }
 
 //=============================================================================
@@ -79,7 +84,7 @@ HRESULT CGame::Init(void)
 	m_state = CGame::GAME_STATE_NOMRAL;
 
 	// 背景クラスの生成
-	CBg::Create();
+	m_pBg = CBg::Create();
 
 	//BGMの再生
 	CManager::GetSound()->Play(CSound::SOUND_LABEL_BGM_GAME);
@@ -92,8 +97,15 @@ HRESULT CGame::Init(void)
 		return -1;
 	}
 
+	//マップのインスタンス生成
+	m_pMap = new CMap;
+
+	if (m_pMap)
+	{
+		m_pMap->Init();
+	}
 	//プレイヤーの生成
-	CPlayer::Create(SCREEN_CENTER_POS, D3DXVECTOR3(50.0f, 50.0f, 0.0f));
+	m_pPlayer = CPlayer::Create(SCREEN_CENTER_POS, D3DXVECTOR3(50.0f, 50.0f, 0.0f));
 
 	//アイテムの生成
 	CItem::Create(D3DXVECTOR3(200.0f, 200.0f, 0.0f), ITEM_SIZE, CItem::ITEM_COIN);
@@ -111,6 +123,10 @@ HRESULT CGame::Init(void)
 //=============================================================================
 void CGame::Uninit(void)
 {
+	if (m_pMap)
+	{
+		m_pMap->Uninit();
+	}
 	if (m_pUi)
 	{
 		//UIクラスの終了処理呼び出し
@@ -176,6 +192,10 @@ void CGame::Update(void)
 		//ポリゴンクラスの更新処理呼び出し
 		m_pPolygon->Update();
 	}
+	if (m_pMap)
+	{
+		m_pMap->Update();
+	}
 }
 
 //=============================================================================
@@ -187,6 +207,10 @@ void CGame::Draw(void)
 	{
 		//ポリゴンクラスの描画処理呼び出し
 		m_pPolygon->Draw();
+	}
+	if (m_pMap)
+	{
+		m_pMap->Draw();
 	}
 }
 
@@ -241,4 +265,14 @@ void CGame::SetGameState(const GAME_STATE state)
 CGame::GAME_STATE CGame::GetGameState(void)
 {
 	return m_state;
+}
+
+CPlayer * CGame::GetPlayer(void)
+{
+	return m_pPlayer;
+}
+
+CBg * CGame::GetBg(void)
+{
+	return m_pBg;
 }

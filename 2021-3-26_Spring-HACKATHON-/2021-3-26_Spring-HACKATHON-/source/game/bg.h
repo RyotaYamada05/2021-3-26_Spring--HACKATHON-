@@ -46,11 +46,13 @@ public:
 	void Update(void);
 	void Draw(void);
 
+	void SetTexPos(D3DXVECTOR2 *pPos);
+
 private:
 	//=========================================================================
 	//ƒƒ“ƒo•Ï”éŒ¾
 	//=========================================================================
 	static LPDIRECT3DTEXTURE9 m_apTexture[MAX_BG_TEX];
-	CScene2D *m_apScene2D[MAX_2D_NUM];
+	CScene2D *m_apScene2D;
 };
 #endif

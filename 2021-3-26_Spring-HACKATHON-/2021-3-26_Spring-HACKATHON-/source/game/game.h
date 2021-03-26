@@ -17,6 +17,9 @@
 //=============================================================================
 class CUi;
 class CPolygon;
+class CPlayer;
+class CMap;
+class CBg;
 
 //=============================================================================
 //ゲームクラス
@@ -52,7 +55,8 @@ public:
 
 	static void SetGameState(const GAME_STATE state);
 	static GAME_STATE GetGameState(void);
-
+	static CPlayer *GetPlayer(void);
+	static CBg *GetBg(void);
 private:
 	//=========================================================================
 	//メンバ変数宣言
@@ -61,6 +65,9 @@ private:
 	int m_nEnemyCounter;	//エネミー生成用カウンター
 	int m_nStaeCounter;	//状態用カウンター
 	CUi *m_pUi;
+	CMap * m_pMap;
 	static CPolygon *m_pPolygon;
+	static CPlayer *m_pPlayer;
+	static CBg *m_pBg;
 };
 #endif
