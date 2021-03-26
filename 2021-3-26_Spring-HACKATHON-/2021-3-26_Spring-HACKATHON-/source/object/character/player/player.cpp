@@ -12,6 +12,8 @@
 #include "item.h"
 #include "ui.h"
 #include "score.h"
+#include "map.h"
+#include "bg.h"
 
 //=============================================================================
 //マクロ定義
@@ -89,24 +91,37 @@ void CPlayer::Uninit(void)
 //=============================================================================
 void CPlayer::Update(void)
 {
-	//false時
-	if (!m_bTrapFlag)
+	CBg::SCROOL_FALG ScFlag = CMap::GetBg()->GetScroolFlag();
+	if (ScFlag.bScrool)
 	{
-		//移動処理
-		Move();
+		m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+		D3DXVECTOR3 pos = GetPos();
+
+		pos.x += -ScFlag.rot.x *((1000 / TIME_VUALE));
+		pos.y += -ScFlag.rot.y *((450 / TIME_VUALE));
+
+		SetPos(pos);
 	}
-	//true時
-	if (m_bTrapFlag)
+	else
 	{
-		m_nCount++;
-		//移動スピードダウン
-		MoveSpeedDown();
-		if (m_nCount >= COUNT_TIME)
+		//false時
+		if (!m_bTrapFlag)
 		{
-			m_bTrapFlag = false;
+			//移動処理
+			Move();
+		}
+		//true時
+		if (m_bTrapFlag)
+		{
+			m_nCount++;
+			//移動スピードダウン
+			MoveSpeedDown();
+			if (m_nCount >= COUNT_TIME)
+			{
+				m_bTrapFlag = false;
+			}
 		}
 	}
-
 #ifdef _DEBUG
 	if (CManager::GetKeyborad()->GetKeyBoardTrigger(DIK_NUMPAD2))
 	{

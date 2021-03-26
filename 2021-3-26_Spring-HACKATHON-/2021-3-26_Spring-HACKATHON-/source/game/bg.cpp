@@ -14,6 +14,10 @@
 //=============================================================================
 #define RATE_BG 0.0008f
 
+#define MOVE_VUALE 0.5f
+
+
+
 //=============================================================================
 //静的メンバ変数宣言
 //=============================================================================
@@ -26,6 +30,9 @@ CBg::CBg(int nPriority) : CScene(nPriority)
 {
 	//0クリア
 	m_apScene2D = NULL;
+	m_nCounter = 0;
+	m_Flag.rot = D3DXVECTOR2(0.0f, 0.0f);
+	m_Flag.bScrool = false;
 }
 
 //=============================================================================
@@ -112,12 +119,10 @@ HRESULT CBg::Init(void)
 //=============================================================================
 void CBg::Uninit(void)
 {
-	
-		if (m_apScene2D)
-		{
-			m_apScene2D->Uninit();
-		}
-	
+	if (m_apScene2D)
+	{
+		m_apScene2D->Uninit();
+	}
 
 	//オブジェクトの破棄
 	SetDeathFlag();
@@ -128,29 +133,34 @@ void CBg::Uninit(void)
 //=============================================================================
 void CBg::Update(void)
 {
-	////移動量
-	//static float fMove[3] = {};
+	if (m_Flag.bScrool)
+	{
+		m_nCounter++;
 
-	////UV座標用の変数
-	//D3DXVECTOR2 aUVpos[4];
-	//
-	//for (int nCount = 0; nCount < MAX_2D_NUM; nCount++)
-	//{
-	//	if (m_apScene2D[nCount])
-	//	{
-	//		//移動量の計算
-	//		fMove[nCount] += RATE_BG + (nCount * RATE_BG);
+		D3DXVECTOR2 aUVpos[4];
+		D3DXVECTOR2 *aUvPosNow = NULL;
 
-	//		//UV座標の定義
-	//		aUVpos[0] = D3DXVECTOR2(0.0f + fMove[nCount], 0.0f);
-	//		aUVpos[1] = D3DXVECTOR2(1.0f + fMove[nCount], 0.0f);
-	//		aUVpos[2] = D3DXVECTOR2(0.0f + fMove[nCount], 1.0f);
-	//		aUVpos[3] = D3DXVECTOR2(1.0f + fMove[nCount], 1.0f);
+		aUvPosNow = m_apScene2D->GetUV();
 
-	//		//2DポリゴンクラスのUV座標設定処理呼び出し
-	//		m_apScene2D[nCount]->SetUV(aUVpos);
-	//	}
-	//}
+		for (int nCntScrool = 0; nCntScrool < 4; nCntScrool++)
+		{
+			aUvPosNow[nCntScrool].x += m_Flag.rot.x * (MOVE_VUALE / TIME_VUALE);
+			aUvPosNow[nCntScrool].y += m_Flag.rot.y * (MOVE_VUALE / TIME_VUALE);
+
+			aUVpos[nCntScrool] = aUvPosNow[nCntScrool];
+		}
+		
+		if (m_apScene2D)
+		{
+			//2DポリゴンクラスのUV座標設定処理呼び出し
+			m_apScene2D->SetUV(aUvPosNow);
+		}
+		if (m_nCounter >= TIME_VUALE)
+		{
+			m_Flag.bScrool = false;
+			m_nCounter = 0;
+		}
+	}
 }
 
 //=============================================================================
@@ -162,7 +172,6 @@ void CBg::Draw(void)
 
 void CBg::SetTexPos(D3DXVECTOR2 * pPos)
 {
-	//UV座標用の変数
 	D3DXVECTOR2 aUVpos[4];
 
 	if (m_apScene2D)
@@ -176,5 +185,17 @@ void CBg::SetTexPos(D3DXVECTOR2 * pPos)
 		//2DポリゴンクラスのUV座標設定処理呼び出し
 		m_apScene2D->SetUV(aUVpos);
 	}
-
 }
+
+void CBg::SetScroolFlag(D3DXVECTOR2 rot)
+{
+	m_Flag.bScrool = true;
+
+	m_Flag.rot = rot;
+}
+
+CBg::SCROOL_FALG CBg::GetScroolFlag(void)
+{
+	return m_Flag;
+}
+

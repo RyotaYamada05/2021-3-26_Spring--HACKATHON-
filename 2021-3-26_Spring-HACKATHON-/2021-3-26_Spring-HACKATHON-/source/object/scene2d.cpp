@@ -23,6 +23,7 @@ CScene2D::CScene2D(int nPriority) :CScene(nPriority)
 	m_size = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//ポリゴンのサイズ
 	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//ポリゴンの位置
 	m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	memset(m_Tex, 0, sizeof(m_Tex));
 }
 
 //=============================================================================
@@ -97,10 +98,10 @@ HRESULT CScene2D::Init(void)
 	pVtx[3].col = m_col;
 
 	//テクスチャ座標の設定
-	pVtx[0].tex = D3DXVECTOR2(0.0f, 0.0f);
-	pVtx[1].tex = D3DXVECTOR2(1.0f, 0.0f);
-	pVtx[2].tex = D3DXVECTOR2(0.0f, 1.0f);
-	pVtx[3].tex = D3DXVECTOR2(1.0f, 1.0f);
+	pVtx[0].tex = m_Tex[0] = D3DXVECTOR2(0.0f, 0.0f);
+	pVtx[1].tex = m_Tex[1] = D3DXVECTOR2(1.0f, 0.0f);
+	pVtx[2].tex = m_Tex[2] = D3DXVECTOR2(0.0f, 1.0f);
+	pVtx[3].tex = m_Tex[3] = D3DXVECTOR2(1.0f, 1.0f);
 
 	//頂点バッファのアンロック
 	m_pVtxBuff->Unlock();
@@ -238,7 +239,7 @@ D3DXVECTOR3 CScene2D::GetSize(void) const
 //=============================================================================
 //2DポリゴンクラスのUV座標設定処理
 //=============================================================================
-void CScene2D::SetUV(D3DXVECTOR2 UVpos[])
+void CScene2D::SetUV(D3DXVECTOR2 *UVpos)
 {
 	//頂点情報へのポインタ
 	VERTEX_2D *pVtx;
@@ -247,13 +248,20 @@ void CScene2D::SetUV(D3DXVECTOR2 UVpos[])
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 	//テクスチャ座標の設定
-	pVtx[0].tex = UVpos[0];
-	pVtx[1].tex = UVpos[1];
-	pVtx[2].tex = UVpos[2];
-	pVtx[3].tex = UVpos[3];
+	pVtx[0].tex = m_Tex[0] = UVpos[0];
+	pVtx[1].tex = m_Tex[1] = UVpos[1];
+	pVtx[2].tex = m_Tex[2] = UVpos[2];
+	pVtx[3].tex = m_Tex[3] = UVpos[3];
 
 	// 頂点バッファをアンロックする
 	m_pVtxBuff->Unlock();
+}
+
+D3DXVECTOR2 * CScene2D::GetUV(void)
+{
+	D3DXVECTOR2 pUVpos[4];
+	
+	return &m_Tex[0];
 }
 
 //=============================================================================

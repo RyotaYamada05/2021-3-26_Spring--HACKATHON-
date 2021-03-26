@@ -12,6 +12,8 @@
 //=============================================================================
 #include "main.h"
 class CAreaBase;
+class CBg;
+
 //=============================================================================
 //マップクラス
 //=============================================================================
@@ -20,21 +22,12 @@ class CMap
 public:
 	typedef enum
 	{
-		MAP_AREA_1 =0,
+		MAP_AREA_1 = 0,
 		MAP_AREA_2,
 		MAP_AREA_3,
 		MAP_AREA_4,
 		MAP_AREA_MAX
 	}MAP_AREA;
-
-	typedef struct
-	{
-		D3DXVECTOR3 LeftTopPos;
-		D3DXVECTOR3 RightTopPos;
-		D3DXVECTOR3 LeftUnderPos;
-		D3DXVECTOR3 RightUnderPos;
-	}MapPos;
-
 
 	//=========================================================================
 	//メンバ関数宣言
@@ -48,6 +41,7 @@ public:
 	virtual void Draw(void);
 	static MAP_AREA GetIndex(void);
 	static void SetMapIndex(const MAP_AREA index);
+	static CBg * GetBg(void);
 	virtual void SetMap(void);
 
 
@@ -57,5 +51,6 @@ public:
 private:
 	static MAP_AREA m_MapIndex;	//マップ番号
 	static CAreaBase *m_pArea[MAP_AREA_MAX];
+	static CBg *m_pBg;
 };
 #endif

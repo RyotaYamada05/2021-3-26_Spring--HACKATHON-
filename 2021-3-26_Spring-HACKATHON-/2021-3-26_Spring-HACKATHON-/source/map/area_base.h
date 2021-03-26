@@ -32,7 +32,7 @@ public:
 	virtual void Draw(void);
 	bool Colljon(CPolygon * pPolygon);
 	virtual void SetMap(void) = 0;
-
+	virtual void SetMapStart(void);
 	CMap::MAP_AREA GetArea(void);
 	//=========================================================================
 	//ƒƒ“ƒo•Ï”éŒ¾

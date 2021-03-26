@@ -7,6 +7,7 @@
 #include "map.h"
 #include  "player.h"
 
+
 #define MAP_AREA1_TOP_LEFT D3DXVECTOR2(0.0f,0.0f)
 #define MAP_AREA1_TOP_RIGHT D3DXVECTOR2(0.5,0.0f)
 #define MAP_AREA1_UNDER_LEFT D3DXVECTOR2(0.0f,0.5f)
@@ -40,13 +41,19 @@ void CArea1::Update(void)
 	
 	if (CMap::GetIndex() == m_Area_Type)
 	{
-		if (Colljon(m_pPolygon[0]))
+		CBg::SCROOL_FALG ScFlag = CMap::GetBg()->GetScroolFlag();
+		if (!ScFlag.bScrool)
 		{
-			CMap::SetMapIndex(CMap::MAP_AREA_2);
-		}
-		if (Colljon(m_pPolygon[1]))
-		{
-			CMap::SetMapIndex(CMap::MAP_AREA_3);
+			if (Colljon(m_pPolygon[0]))
+			{
+				CMap::GetBg()->SetScroolFlag(SCROOL_RGHIT);
+				CMap::SetMapIndex(CMap::MAP_AREA_2);
+			}
+			if (Colljon(m_pPolygon[1]))
+			{
+				CMap::GetBg()->SetScroolFlag(SCROOL_DOWN);
+				CMap::SetMapIndex(CMap::MAP_AREA_3);
+			}
 		}
 	}
 	CAreaBase::Update();
@@ -69,5 +76,16 @@ void CArea1::SetMap(void)
 	pos[2] = MAP_AREA1_UNDER_LEFT;
 	pos[3] = MAP_AREA1_UNDER_RIGHT;
 
-	CGame::GetBg()->SetTexPos(pos);
+	CMap::GetBg()->SetTexPos(pos);
+}
+
+void CArea1::SetMapStart(void)
+{
+	D3DXVECTOR2 pos[4];
+	pos[0] = MAP_AREA1_TOP_LEFT;
+	pos[1] = MAP_AREA1_TOP_RIGHT;
+	pos[2] = MAP_AREA1_UNDER_LEFT;
+	pos[3] = MAP_AREA1_UNDER_RIGHT;
+
+	CMap::GetBg()->SetTexPos(pos);
 }

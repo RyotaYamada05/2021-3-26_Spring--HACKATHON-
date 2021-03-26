@@ -40,13 +40,21 @@ void CArea4::Update(void)
 
 	if (CMap::GetIndex() == m_Area_Type)
 	{
-		if (Colljon(m_pPolygon[0]))
+		CBg::SCROOL_FALG ScFlag = CMap::GetBg()->GetScroolFlag();
+		if (!ScFlag.bScrool)
 		{
-			CMap::SetMapIndex(CMap::MAP_AREA_2);
-		}
-		if (Colljon(m_pPolygon[1]))
-		{
-			CMap::SetMapIndex(CMap::MAP_AREA_3);
+			if (Colljon(m_pPolygon[0]))
+			{
+				CMap::GetBg()->SetScroolFlag(SCROOL_UP);
+
+				CMap::SetMapIndex(CMap::MAP_AREA_2);
+			}
+			if (Colljon(m_pPolygon[1]))
+			{
+				CMap::GetBg()->SetScroolFlag(SCROOL_LEFT);
+
+				CMap::SetMapIndex(CMap::MAP_AREA_3);
+			}
 		}
 	}
 	CAreaBase::Update();
@@ -68,5 +76,5 @@ void CArea4::SetMap(void)
 	pos[2] = MAP_AREA4_UNDER_LEFT;
 	pos[3] = MAP_AREA4_UNDER_RIGHT;
 
-	CGame::GetBg()->SetTexPos(pos);
+	CMap::GetBg()->SetTexPos(pos);
 }

@@ -5,7 +5,6 @@
 //
 //=============================================================================
 #include "game.h"
-#include "bg.h"
 #include "scene2d.h"
 #include "fade.h"
 #include "manager.h"
@@ -30,7 +29,6 @@
 CGame::GAME_STATE CGame::m_state = CGame::GAME_STATE_NOMRAL;
 CPolygon * CGame::m_pPolygon = NULL;
 CPlayer * CGame::m_pPlayer = NULL;
-CBg * CGame::m_pBg = NULL;
 
 //=============================================================================
 //ゲームクラスのコンストラクタ
@@ -82,9 +80,6 @@ CGame * CGame::Create(void)
 HRESULT CGame::Init(void)
 {
 	m_state = CGame::GAME_STATE_NOMRAL;
-
-	// 背景クラスの生成
-	m_pBg = CBg::Create();
 
 	//BGMの再生
 	CManager::GetSound()->Play(CSound::SOUND_LABEL_BGM_GAME);
@@ -278,7 +273,3 @@ CPlayer * CGame::GetPlayer(void)
 	return m_pPlayer;
 }
 
-CBg * CGame::GetBg(void)
-{
-	return m_pBg;
-}

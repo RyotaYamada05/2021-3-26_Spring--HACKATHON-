@@ -13,17 +13,17 @@
 #include "area4.h"
 #include "manager.h"
 #include "keyboard.h"
+#include "bg.h"
 
 CAreaBase *CMap::m_pArea[MAP_AREA_MAX] = {};
 CMap::MAP_AREA CMap::m_MapIndex = MAP_AREA_1;
+CBg *CMap::m_pBg = NULL;
 
 //=============================================================================
 //マップクラスのコンストラクタ
 //=============================================================================
 CMap::CMap()
 {
-	memset(m_pArea, 0, sizeof(m_pArea));
-	m_MapIndex = MAP_AREA_1;
 }
 
 //=============================================================================
@@ -38,6 +38,19 @@ CMap::~CMap()
 //=============================================================================
 HRESULT CMap::Init(void)
 {
+	m_MapIndex = MAP_AREA_1;
+
+	// 背景クラスの生成
+	m_pBg = CBg::Create();
+
+	/*D3DXVECTOR2 pos[4];
+	pos[0] = MAP_AREA1_TOP_LEFT;
+	pos[1] = MAP_AREA1_TOP_RIGHT;
+	pos[2] = MAP_AREA1_UNDER_LEFT;
+	pos[3] = MAP_AREA1_UNDER_RIGHT;
+
+	m_pBg->SetTexPos(pos);*/
+
 	if (!m_pArea[MAP_AREA_1])
 	{
 		m_pArea[MAP_AREA_1] = new CArea1;
@@ -74,6 +87,7 @@ HRESULT CMap::Init(void)
 		}
 	}
 
+	m_pArea[m_MapIndex]->SetMapStart();
 	return S_OK;
 }
 
@@ -146,8 +160,12 @@ CMap::MAP_AREA CMap::GetIndex(void)
 void CMap::SetMapIndex(const MAP_AREA index)
 {
 	m_MapIndex = index;
-	m_pArea[m_MapIndex]->SetMap();
+	//m_pArea[m_MapIndex]->SetMap();
+}
 
+CBg * CMap::GetBg(void)
+{
+	return m_pBg;
 }
 
 void CMap::SetMap(void)
