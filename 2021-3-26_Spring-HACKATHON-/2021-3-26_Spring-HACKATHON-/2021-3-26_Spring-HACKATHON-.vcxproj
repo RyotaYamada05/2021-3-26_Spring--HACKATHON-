@@ -42,6 +42,7 @@
     <ClCompile Include="source\system\sound.cpp" />
     <ClCompile Include="source\ui\number.cpp" />
     <ClCompile Include="source\ui\score.cpp" />
+    <ClCompile Include="source\ui\time.cpp" />
     <ClCompile Include="source\ui\ui.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +69,7 @@
     <ClInclude Include="source\system\sound.h" />
     <ClInclude Include="source\ui\number.h" />
     <ClInclude Include="source\ui\score.h" />
+    <ClInclude Include="source\ui\time.h" />
     <ClInclude Include="source\ui\ui.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
