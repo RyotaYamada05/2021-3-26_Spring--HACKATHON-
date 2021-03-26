@@ -16,6 +16,7 @@
 //前方宣言
 //=============================================================================
 class CScore;
+class CTime;
 
 //=============================================================================
 //UIクラスの
@@ -35,7 +36,9 @@ public:
 	void Draw(void);
 
 	static CScore *GetScore(void);
+	static CTime * GetTime(void);
 private:
 	static CScore *pScore;	//スコアのポインタ変数
+	static CTime *pTime;	//タイムのポインタ変数
 };
 #endif // !_ENEMY_H_

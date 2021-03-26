@@ -10,6 +10,8 @@
 #include "debugfont.h"
 #include "game.h"
 #include "item.h"
+#include "ui.h"
+#include "score.h"
 
 //=============================================================================
 //ƒ}ƒNƒ’è‹`
@@ -121,6 +123,8 @@ void CPlayer::Update(void)
 	if (CManager::GetKeyborad()->GetKeyBoardTrigger(DIK_NUMPAD9))
 	{
 		AddLife(1);
+		CScore *pScore = CUi::GetScore();
+		pScore->AddScore(50);
 	}
 #endif
 

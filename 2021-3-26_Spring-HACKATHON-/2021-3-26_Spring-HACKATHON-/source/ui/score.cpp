@@ -20,6 +20,7 @@ CScore::CScore(int nPriority) :CScene(nPriority)
 {
 	//各メンバ変数のクリア
 	memset(m_apNumber, 0, sizeof(m_apNumber));
+	m_nAddScore = 0;
 }
 
 //=============================================================================
@@ -62,15 +63,13 @@ HRESULT CScore::Init(void)
 {
 	m_nScore = 0;
 
-	for (int nCount = 0; nCount < SCORE_MAX_NUM; nCount++)
-	{
-		//ナンバークラスをSCORE_MAX_NUM分生成
-		m_apNumber[nCount] = CNumber::Create(0, CNumber::NUMBER_TYPE_000,	//表示する数字と種類
-			D3DXVECTOR3((SCREEN_WIDTH - NUMBER_SIZE_X * SCORE_MAX_NUM) + ((nCount * NUMBER_SIZE_X) + (NUMBER_SIZE_X / 2)),		//x軸の位置
-			(NUMBER_SIZE_Y / 2), //yの位置
-				0.0f),	//zの位置
-			NUMBER_SIZE, COLOR_WHITE);	//サイズと色
-	}
+	//ナンバークラスをSCORE_MAX_NUM分生成
+	m_apNumber[0] = CNumber::Create(0, CNumber::NUMBER_TYPE_000,	//表示する数字と種類
+		D3DXVECTOR3((SCREEN_WIDTH - NUMBER_SIZE_X) + (NUMBER_SIZE_X / 2),		//x軸の位置
+		(NUMBER_SIZE_Y / 2), //yの位置
+			0.0f),	//zの位置
+		NUMBER_SIZE, COLOR_WHITE);	//サイズと色
+
 	return S_OK;
 }
 
@@ -103,6 +102,38 @@ void CScore::Uninit(void)
 //=============================================================================
 void CScore::Update(void)
 {
+	// 1フレーム前の敵の倒した数が現在の倒した数より少なかったら
+	if (m_nAddScore < m_nScore)
+	{
+		// 加算して大きくする
+		m_nAddScore += 2;
+	}
+
+	float fIndex = 0.0f;  //指数　(スコア表示用)
+	float fRadix = 10.0f; //基数　(スコア表示用)
+
+	// 数字の設定
+	for (fIndex = 0; fIndex < SCORE_MAX_NUM; fIndex++)
+	{
+		int nScore = (int)powf(fRadix, fIndex);
+		int nScore2 = (int)powf(fRadix, fIndex + 1);
+		int nAnswer = (m_nAddScore % nScore2) / nScore;
+
+		if (!m_apNumber[(int)fIndex] && nAnswer > 0)
+		{
+			m_apNumber[(int)fIndex] = CNumber::Create(0, CNumber::NUMBER_TYPE_000,	//表示する数字と種類
+				D3DXVECTOR3((SCREEN_WIDTH) - ((fIndex * NUMBER_SIZE_X) + (NUMBER_SIZE_X / 2)),		//x軸の位置
+				(NUMBER_SIZE_Y / 2), //yの位置
+					0.0f),	//zの位置
+				NUMBER_SIZE, COLOR_WHITE);	//サイズと色
+		}
+
+		if (m_apNumber[(int)fIndex])
+		{
+			// 各ナンバーのセット
+			m_apNumber[(int)fIndex]->SetNumber(nAnswer);
+		}
+	}
 }
 
 //=============================================================================
@@ -127,25 +158,6 @@ void CScore::AddScore(const int nScore)
 {
 	//スコアの加算
 	m_nScore += nScore;
-	float fIndex;  //指数　(スコア表示用)
-	float fRadix = 10.0f; //基数　(スコア表示用)
-
-	for (fIndex = 0; fIndex < SCORE_MAX_NUM; fIndex++)
-	{
-		if (m_apNumber[(int)fIndex])
-		{
-			//各桁の値を求める
-			int nScore = (int)powf(fRadix, SCORE_MAX_NUM - fIndex);
-			int nScore2 = (int)powf(fRadix, SCORE_MAX_NUM - fIndex - 1);
-			int nAnswer = (m_nScore % nScore) / nScore2;
-
-			//ナンバークラスの更新処理呼び出し
-			m_apNumber[(int)fIndex]->Update();
-
-			//数字の設定
-			m_apNumber[(int)fIndex]->SetNumber(nAnswer);
-		}
-	}
 }
 
 //=============================================================================
