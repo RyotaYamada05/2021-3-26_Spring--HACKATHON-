@@ -32,11 +32,11 @@ HRESULT CArea1::Init(CMap::MAP_AREA m_Area_Type)
 	//アイテムの生成
 	CItem::Create(D3DXVECTOR3(200.0f, 200.0f, 0.0f), ITEM_SIZE, CItem::ITEM_DIAMOND);
 
-	//アイテムの生成
-	CItem::Create(D3DXVECTOR3(200.0f, 200.0f, 0.0f), ITEM_SIZE, CItem::ITEM_TREASURE);
+	////アイテムの生成
+	//CItem::Create(D3DXVECTOR3(500.0f, 350.0f, 0.0f), ITEM_SIZE, CItem::ITEM_TREASURE);
 
-	//アイテムの生成
-	CItem::Create(D3DXVECTOR3(200.0f, 200.0f, 0.0f), ITEM_SIZE, CItem::ITEM_TRAP);
+	////アイテムの生成
+	//CItem::Create(D3DXVECTOR3(800.0f, 600.0f, 0.0f), ITEM_SIZE, CItem::ITEM_TRAP);
 	return S_OK;
 }
 

@@ -29,13 +29,13 @@ HRESULT CArea4::Init(CMap::MAP_AREA m_Area_Type)
 	m_pPolygon[1] = CPolygon::Create(D3DXVECTOR3(0, SCREEN_HEIGHT / 2, 0.0f), D3DXVECTOR3(200.0f, 200.0f, 0.0f), CPolygon::TEX_TYPE_DOOR);
 	
 	//アイテムの生成
-	CItem::Create(D3DXVECTOR3(200.0f, 200.0f, 0.0f), ITEM_SIZE, CItem::ITEM_DIAMOND);
+	CItem::Create(D3DXVECTOR3(600.0f, 700.0f, 0.0f), ITEM_SIZE, CItem::ITEM_DIAMOND);
 
-	//アイテムの生成
-	CItem::Create(D3DXVECTOR3(200.0f, 200.0f, 0.0f), ITEM_SIZE, CItem::ITEM_TREASURE);
+	////アイテムの生成
+	//CItem::Create(D3DXVECTOR3(150.0f, 600.0f, 0.0f), ITEM_SIZE, CItem::ITEM_TREASURE);
 
-	//アイテムの生成
-	CItem::Create(D3DXVECTOR3(200.0f, 200.0f, 0.0f), ITEM_SIZE, CItem::ITEM_TRAP);
+	////アイテムの生成
+	//CItem::Create(D3DXVECTOR3(900.0f, 300.0f, 0.0f), ITEM_SIZE, CItem::ITEM_TRAP);
 	return S_OK;
 }
 
