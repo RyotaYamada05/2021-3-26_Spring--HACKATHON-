@@ -7,6 +7,7 @@
 #include "item.h"
 #include "player.h"
 #include "score.h"
+#include "time.h"
 
 //=============================================================================
 //マクロ定義
@@ -15,12 +16,14 @@
 #define POINT_TREASURE 5	// 宝のポイント値
 #define POINT_DOUBLE 2
 
+
 //=============================================================================
 //アイテムクラスのコンストラクタ
 //=============================================================================
 CItem::CItem()
 {
 	m_nPoint = 0;
+	m_nTime = 0;
 }
 
 //=============================================================================
@@ -93,15 +96,18 @@ void CItem::Update(void)
 {
 	//CScene2Dの更新
 	CScene2D::Update();
-
+	//プレイヤーのポインタ
 	CPlayer *pPlayer = NULL;
-
+	//スコアのポインタ
 	CScore *pScore = NULL;
+	//タイムのポインタ
+	CTime *pTime = NULL;
+	//タイムのカウント情報を取得する
+	m_nTime = pTime->GetTime();
 
 	//プレイヤーとの当たり判定
 	pPlayer = (CPlayer *)JudgeCollision(OBJTYPE_PLAYER, GetPos(), GetSize());
 
-	
 	if (pPlayer)
 	{
 		// アイテムの効果
@@ -116,8 +122,16 @@ void CItem::Update(void)
 		case ITEM_DIAMOND:
 			if (pScore)
 			{
-				pScore->AddScore(m_nPoint);
-				DoubleScore();
+				//タイムが半分以上の場合
+				if (m_nTime >= HALF_TIME)
+				{
+					pScore->AddScore(m_nPoint);
+				}
+				//タイムが半分以下の場合
+				if (m_nTime <= HALF_TIME)
+				{
+					DoubleScore();
+				}
 			}
 			break;
 
@@ -125,8 +139,16 @@ void CItem::Update(void)
 		case ITEM_TREASURE:
 			if (pScore)
 			{
-				pScore->AddScore(m_nPoint);
-				DoubleScore();
+				//タイムが半分以上の場合
+				if (m_nTime >= HALF_TIME)
+				{
+					pScore->AddScore(m_nPoint);
+				}
+				//タイムが半分以下の場合
+				if (m_nTime <= HALF_TIME)
+				{
+					DoubleScore();
+				}
 			}
 		default:
 			break;

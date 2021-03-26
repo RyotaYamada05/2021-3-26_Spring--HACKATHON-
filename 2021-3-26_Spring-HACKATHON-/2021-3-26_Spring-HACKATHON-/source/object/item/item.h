@@ -47,6 +47,7 @@ public:
 	void Draw(void);
 
 	void DoubleScore(void);	//ダブルスコア関数
+	void RandomCreate(void);
 	ITEM GetItem(void) { return m_Item; }
 private:
 	//=========================================================================
@@ -55,6 +56,7 @@ private:
 	LPDIRECT3DTEXTURE9 m_pTexture;	//テクスチャポインタ
 	int m_nPoint;//ポイントの値保存
 	ITEM m_Item;//種類
+	int m_nTime;
 };
 
 #endif // !_ITEM_H_

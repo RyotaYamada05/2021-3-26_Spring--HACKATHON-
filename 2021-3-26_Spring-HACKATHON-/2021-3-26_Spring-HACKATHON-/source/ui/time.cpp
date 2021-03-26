@@ -61,7 +61,7 @@ CTime * CTime::Create(void)
 //=============================================================================
 HRESULT CTime::Init(void)
 {
-	m_nTime = 5400;
+	m_nTime = TIME_MAX_MIN;
 
 	for (int nCount = 0; nCount < TIME_MAX_NUM; nCount++)
 	{
