@@ -73,7 +73,7 @@ HRESULT CTitle::Init(void)
 
 	//タイトルロゴ用ポリゴンの生成
 	m_apPolygon[TITLE_TYPE_LOGO] = CPolygon::Create(D3DXVECTOR3(SCREEN_WIDTH/2,-50.0f,0.0f), 
-		D3DXVECTOR3(800.0f,200.0f,0.0f), CPolygon::TEX_TYPE_TITLE_LOGO);
+		D3DXVECTOR3(800.0f,400.0f,0.0f), CPolygon::TEX_TYPE_TITLE_LOGO);
 
 	//ベクトルを求める
 	D3DXVECTOR3 Vector = D3DXVECTOR3(SCREEN_WIDTH / 2, 200.0f, 0.0f) - m_pos;
