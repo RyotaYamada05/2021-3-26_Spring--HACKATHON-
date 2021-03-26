@@ -45,9 +45,10 @@ public:
 	void Update(void);
 	void Draw(void);
 
+	void DoubleScore(void);	//ダブルスコア関数
 private:
-	int m_nPoint;
-	ITEM m_pItem;
+	int m_nPoint;//ポイントの値保存
+	ITEM m_pItem;//種類
 	//=========================================================================
 	//メンバ変数宣言
 	//=========================================================================

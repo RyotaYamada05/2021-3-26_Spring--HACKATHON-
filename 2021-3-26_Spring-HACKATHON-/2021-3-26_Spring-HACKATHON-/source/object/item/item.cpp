@@ -6,12 +6,14 @@
 //=============================================================================
 #include "item.h"
 #include "player.h"
+#include "score.h"
 
 //=============================================================================
 //マクロ定義
 //=============================================================================
-#define POINT_COIN 1
-#define POINT_TREASURE 5
+#define POINT_COIN 1		// コインのポイント値
+#define POINT_TREASURE 5	// 宝のポイント値
+#define POINT_DOUBLE 2
 
 //=============================================================================
 //アイテムクラスのコンストラクタ
@@ -57,7 +59,7 @@ HRESULT CItem::Init(void)
 	//CScene2Dの初期化
 	CScene2D::Init();
 
-	// アイテムのポイント値
+	// アイテムのポイント値初期化
 	switch (m_pItem)
 	{
 	// コイン
@@ -94,9 +96,16 @@ void CItem::Update(void)
 
 	CPlayer *pPlayer = NULL;
 
+	CScore *pScore = NULL;
+
 	//プレイヤーとの当たり判定
 	pPlayer = (CPlayer *)JudgeCollision(OBJTYPE_PLAYER, GetPos(), GetSize());
 
+	if (pScore)
+	{
+		pScore->AddScore(m_nPoint);
+		DoubleScore();
+	}
 	if (pPlayer)
 	{
 		//体力を回復させる
@@ -114,4 +123,16 @@ void CItem::Draw(void)
 {
 	//CScene2Dの描画
 	CScene2D::Draw();
+}
+
+//=============================================================================
+//二倍になる処理
+//=============================================================================
+void CItem::DoubleScore(void)
+{
+	CScore *pScore = NULL;
+	if (pScore)
+	{
+		pScore->AddScore(m_nPoint * POINT_DOUBLE);
+	}
 }
