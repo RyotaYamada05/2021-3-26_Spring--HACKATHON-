@@ -28,8 +28,9 @@ public:
 	// アイテムの種類
 	typedef enum
 	{
-		ITEM_COIN = 0,	// コイン
+		ITEM_DIAMOND = 0,	// コイン
 		ITEM_TREASURE,	// 宝
+		ITEM_TRAP,
 		ITEM_MAX
 	}ITEM;
 	//=========================================================================
@@ -46,13 +47,14 @@ public:
 	void Draw(void);
 
 	void DoubleScore(void);	//ダブルスコア関数
+	ITEM GetItem(void) { return m_Item; }
 private:
-	int m_nPoint;//ポイントの値保存
-	ITEM m_pItem;//種類
 	//=========================================================================
 	//メンバ変数宣言
 	//=========================================================================
 	LPDIRECT3DTEXTURE9 m_pTexture;	//テクスチャポインタ
+	int m_nPoint;//ポイントの値保存
+	ITEM m_Item;//種類
 };
 
 #endif // !_ITEM_H_

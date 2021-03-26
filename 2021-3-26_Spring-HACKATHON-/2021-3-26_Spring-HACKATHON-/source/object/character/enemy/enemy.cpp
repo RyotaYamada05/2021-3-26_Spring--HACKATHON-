@@ -122,7 +122,7 @@ void CEnemy::DiedProcess(void)
 	switch (m_DeathAction)
 	{
 	case DEATH_ACTION_LIFE:
-		CItem::Create(GetPos(),ITEM_SIZE,CItem::ITEM_COIN);
+		CItem::Create(GetPos(),ITEM_SIZE,CItem::ITEM_DIAMOND);
 		break;
 
 	default:

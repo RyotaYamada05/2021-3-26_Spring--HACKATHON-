@@ -9,13 +9,16 @@
 #include "keyboard.h"
 #include "debugfont.h"
 #include "game.h"
+#include "item.h"
 
 //=============================================================================
 //マクロ定義
 //=============================================================================
 #define MOVE_VALUE 5.0f			//移動量
+#define MOVE_VALUE_DOWN 0.0f	//移動量ダウン
 #define INERTIA_CONSTANT 0.15f	//慣性の定数
 #define MAX_PLAYER_LIFE	50		//プレイヤーの最大体力
+#define COUNT_TIME 180
 
 //=============================================================================
 //プレイヤークラスのコンストラクタ
@@ -24,6 +27,8 @@ CPlayer::CPlayer(int nPriority):CCharacter(nPriority)
 {
 	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_nItemCount = 0;
+	m_nCount = 0;
+	m_bTrapFlag = false;
 }
 
 //=============================================================================
@@ -82,8 +87,21 @@ void CPlayer::Uninit(void)
 //=============================================================================
 void CPlayer::Update(void)
 {
-	//移動処理
-	Move();
+	if (!m_bTrapFlag)
+	{
+		//移動処理
+		Move();
+	}
+	if (m_bTrapFlag)
+	{
+		m_nCount++;
+		//移動スピードダウン
+		MoveSpeedDown();
+		if (m_nCount >= COUNT_TIME)
+		{
+			m_bTrapFlag = false;
+		}
+	}
 
 #ifdef _DEBUG
 	if (CManager::GetKeyborad()->GetKeyBoardTrigger(DIK_NUMPAD2))
@@ -135,6 +153,7 @@ void CPlayer::Move(void)
 {
 	//位置を取得
 	D3DXVECTOR3 pos = GetPos();
+
 
 	if (CManager::GetKeyborad()->GetKeyBoardPress(DIK_W))
 	{
@@ -238,6 +257,51 @@ void CPlayer::DiedProcess(void)
 
 	//ゲームモードをゲームオーバー状態へ移行
 	CGame::SetGameState(CGame::GAME_STATE_GAME_OVER);
+}
+
+void CPlayer::OnTrapFlag(void)
+{
+	m_bTrapFlag = true;
+}
+
+//=============================================================================
+//移動スピード遅くする処理
+//=============================================================================
+void CPlayer::MoveSpeedDown(void)
+{
+	//位置を取得
+	D3DXVECTOR3 pos = GetPos();
+
+
+	if (CManager::GetKeyborad()->GetKeyBoardPress(DIK_W))
+	{
+		m_move.y = -MOVE_VALUE_DOWN;
+	}
+	if (CManager::GetKeyborad()->GetKeyBoardPress(DIK_S))
+	{
+		m_move.y = MOVE_VALUE_DOWN;
+	}
+	if (CManager::GetKeyborad()->GetKeyBoardPress(DIK_A))
+	{
+		m_move.x = -MOVE_VALUE_DOWN;
+	}
+	if (CManager::GetKeyborad()->GetKeyBoardPress(DIK_D))
+	{
+		m_move.x = MOVE_VALUE_DOWN;
+	}
+
+	//慣性の処理
+	m_move.x += (0.0f - m_move.x) * INERTIA_CONSTANT;
+	m_move.y += (0.0f - m_move.y) * INERTIA_CONSTANT;
+
+	//位置に移動量を与える
+	pos += m_move;
+
+	//移動制限
+	MoveLimit(&pos);
+
+	//位置を設定
+	SetPos(pos);
 }
 
 //=============================================================================

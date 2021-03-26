@@ -11,7 +11,7 @@
 //=============================================================================
 //マクロ定義
 //=============================================================================
-#define POINT_COIN 1		// コインのポイント値
+#define POINT_DIAMOND 1		// コインのポイント値
 #define POINT_TREASURE 5	// 宝のポイント値
 #define POINT_DOUBLE 2
 
@@ -41,7 +41,7 @@ CItem * CItem::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, ITEM type)
 	{
 		pItem->SetPos(pos);
 		pItem->SetSize(size);
-		pItem->m_pItem = type;
+		pItem->m_Item = type;
 		pItem->Init();
 	}
 	else
@@ -60,11 +60,11 @@ HRESULT CItem::Init(void)
 	CScene2D::Init();
 
 	// アイテムのポイント値初期化
-	switch (m_pItem)
+	switch (m_Item)
 	{
 	// コイン
-	case ITEM_COIN:
-		m_nPoint = POINT_COIN;
+	case ITEM_DIAMOND:
+		m_nPoint = POINT_DIAMOND;
 		break;
 	// 宝
 	case ITEM_TREASURE:
@@ -101,16 +101,36 @@ void CItem::Update(void)
 	//プレイヤーとの当たり判定
 	pPlayer = (CPlayer *)JudgeCollision(OBJTYPE_PLAYER, GetPos(), GetSize());
 
-	if (pScore)
-	{
-		pScore->AddScore(m_nPoint);
-		DoubleScore();
-	}
+	
 	if (pPlayer)
 	{
-		//体力を回復させる
-		pPlayer->AddLife(20);
-		pPlayer->AddItemCount();
+		// アイテムの効果
+		switch (m_Item)
+		{
+		// トラップの場合
+		case ITEM_TRAP:
+			pPlayer->OnTrapFlag();
+			break;
+
+		// ダイヤの場合
+		case ITEM_DIAMOND:
+			if (pScore)
+			{
+				pScore->AddScore(m_nPoint);
+				DoubleScore();
+			}
+			break;
+
+		// 宝の場合
+		case ITEM_TREASURE:
+			if (pScore)
+			{
+				pScore->AddScore(m_nPoint);
+				DoubleScore();
+			}
+		default:
+			break;
+		}
 		//終了する
 		Uninit();
 	}

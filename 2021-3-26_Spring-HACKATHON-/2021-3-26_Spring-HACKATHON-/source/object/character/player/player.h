@@ -36,6 +36,8 @@ public:
 	void Recovery(const int nRecovery);
 	void DiedProcess(void);
 
+	void OnTrapFlag(void);
+	void MoveSpeedDown(void);
 	void AddItemCount(void);
 #ifdef _DEBUG
 	void DebugDataPrint(void);
@@ -46,5 +48,7 @@ private:
 	//=========================================================================
 	D3DXVECTOR3 m_move;	//ˆÚ“®—Ê
 	int m_nItemCount;	//ƒAƒCƒeƒ€æ“¾”
+	int m_nCount;
+	bool m_bTrapFlag;
 };
 #endif // !_PLAYER_H_
