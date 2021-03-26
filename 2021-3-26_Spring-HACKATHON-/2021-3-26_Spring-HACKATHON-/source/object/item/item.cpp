@@ -8,6 +8,7 @@
 #include "player.h"
 #include "score.h"
 #include "time.h"
+#include "ui.h"
 
 //=============================================================================
 //マクロ定義
@@ -24,6 +25,8 @@ CItem::CItem()
 {
 	m_nPoint = 0;
 	m_nTime = 0;
+	m_bflag = false;
+	m_nCounter = 0;
 }
 
 //=============================================================================
@@ -94,67 +97,85 @@ void CItem::Uninit(void)
 //=============================================================================
 void CItem::Update(void)
 {
-	//CScene2Dの更新
-	CScene2D::Update();
-	//プレイヤーのポインタ
-	CPlayer *pPlayer = NULL;
-	//スコアのポインタ
-	CScore *pScore = NULL;
-	//タイムのポインタ
-	CTime *pTime = NULL;
-	//タイムのカウント情報を取得する
-	m_nTime = pTime->GetTime();
-
-	//プレイヤーとの当たり判定
-	pPlayer = (CPlayer *)JudgeCollision(OBJTYPE_PLAYER, GetPos(), GetSize());
-
-	if (pPlayer)
+	if (!m_bflag)
 	{
-		// アイテムの効果
-		switch (m_Item)
+		//CScene2Dの更新
+		CScene2D::Update();
+		//プレイヤーのポインタ
+		CPlayer *pPlayer = NULL;
+		//スコアのポインタ
+		CScore *pScore = CUi::GetScore();
+		//タイムのポインタ
+		CTime *pTime = NULL;
+		//タイムのカウント情報を取得する
+		m_nTime = pTime->GetTime();
+
+		//プレイヤーとの当たり判定
+		pPlayer = (CPlayer *)JudgeCollision(OBJTYPE_PLAYER, GetPos(), GetSize());
+
+		if (pPlayer)
 		{
-		// トラップの場合
-		case ITEM_TRAP:
-			pPlayer->OnTrapFlag();
-			break;
-
-		// ダイヤの場合
-		case ITEM_DIAMOND:
-			if (pScore)
+			// アイテムの効果
+			switch (m_Item)
 			{
-				//タイムが半分以上の場合
-				if (m_nTime >= HALF_TIME)
-				{
-					pScore->AddScore(m_nPoint);
-				}
-				//タイムが半分以下の場合
-				if (m_nTime <= HALF_TIME)
-				{
-					DoubleScore();
-				}
-			}
-			break;
+				// トラップの場合
+			case ITEM_TRAP:
+				pPlayer->OnTrapFlag();
+				break;
 
-		// 宝の場合
-		case ITEM_TREASURE:
-			if (pScore)
-			{
-				//タイムが半分以上の場合
-				if (m_nTime >= HALF_TIME)
+				// ダイヤの場合
+			case ITEM_DIAMOND:
+				if (pScore != NULL)
 				{
-					pScore->AddScore(m_nPoint);
+					//タイムが半分以上の場合
+					if (m_nTime >= HALF_TIME)
+					{
+						pScore->AddScore(m_nPoint);
+					}
+					//タイムが半分以下の場合
+					if (m_nTime <= HALF_TIME)
+					{
+						DoubleScore();
+					}
 				}
-				//タイムが半分以下の場合
-				if (m_nTime <= HALF_TIME)
+				break;
+
+				// 宝の場合
+			case ITEM_TREASURE:
+				if (pScore != NULL)
 				{
-					DoubleScore();
+					//タイムが半分以上の場合
+					if (m_nTime >= HALF_TIME)
+					{
+						pScore->AddScore(m_nPoint);
+					}
+					//タイムが半分以下の場合
+					if (m_nTime <= HALF_TIME)
+					{
+						DoubleScore();
+					}
 				}
+			default:
+				break;
 			}
-		default:
-			break;
+			m_bflag = true;
 		}
-		//終了する
-		Uninit();
+	}
+	else
+	{
+		m_nCounter++;
+		if (m_nCounter == 100)
+		{
+			float posX = (float)(0 + rand() % 1000);
+			float posY = (float)(0 + rand() % 700);
+
+			SetPos(D3DXVECTOR3(posX, posY, 0.0f));
+		}
+		if (m_nCounter >= 60)
+		{
+			m_nCounter = 0;
+			m_bflag = false;
+		}
 	}
 }
 
@@ -163,8 +184,11 @@ void CItem::Update(void)
 //=============================================================================
 void CItem::Draw(void)
 {
-	//CScene2Dの描画
-	CScene2D::Draw();
+	if (!m_bflag)
+	{
+		//CScene2Dの描画
+		CScene2D::Draw();
+	}
 }
 
 //=============================================================================

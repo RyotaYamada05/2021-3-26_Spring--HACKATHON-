@@ -106,7 +106,7 @@ void CScore::Update(void)
 	if (m_nAddScore < m_nScore)
 	{
 		// 加算して大きくする
-		m_nAddScore += 2;
+		m_nAddScore += 1;
 	}
 
 	float fIndex = 0.0f;  //指数　(スコア表示用)

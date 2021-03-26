@@ -231,6 +231,8 @@ void CManager::Uninit(void)
 //=============================================================================
 void CManager::Update(void)
 {
+	srand(NULL);
+
 	if (m_pKeyBoard)
 	{
 		//入力処理クラスの更新処理呼び出し

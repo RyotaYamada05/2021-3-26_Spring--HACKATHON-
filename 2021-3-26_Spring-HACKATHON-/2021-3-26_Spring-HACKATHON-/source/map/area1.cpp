@@ -6,6 +6,7 @@
 #include "keyboard.h"
 #include "map.h"
 #include  "player.h"
+#include "item.h"
 
 #define MAP_AREA1_TOP_LEFT D3DXVECTOR2(0.0f,0.0f)
 #define MAP_AREA1_TOP_RIGHT D3DXVECTOR2(0.5,0.0f)
@@ -26,6 +27,10 @@ HRESULT CArea1::Init(CMap::MAP_AREA m_Area_Type)
 	CAreaBase::Init(m_Area_Type);
 	m_pPolygon[0] = CPolygon::Create(D3DXVECTOR3(SCREEN_WIDTH, SCREEN_HEIGHT / 2, 0.0f), D3DXVECTOR3(200.0f, 200.0f, 0.0f), CPolygon::TEX_TYPE_DOOR);
 	m_pPolygon[1] = CPolygon::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT, 0.0f), D3DXVECTOR3(200.0f, 200.0f, 0.0f), CPolygon::TEX_TYPE_DOOR);
+	
+	//ÉAÉCÉeÉÄÇÃê∂ê¨
+	CItem::Create(D3DXVECTOR3(200.0f, 200.0f, 0.0f), ITEM_SIZE, CItem::ITEM_DIAMOND);
+
 	return E_NOTIMPL;
 }
 
