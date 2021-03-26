@@ -9,6 +9,8 @@
 #include "timer.h"
 #include "dollar.h"
 #include "number.h"
+#include "manager.h"
+#include "fade.h"
 
 //=============================================================================
 //静的メンバ変数宣言
@@ -73,6 +75,21 @@ void CUi::Update(void)
 	{
 		// 時間の減算
 		pTime->SubTime();
+
+
+		if (pTime->GetTime() <= 0)
+		{
+			//フェード情報を取得
+			CFade *pFade = CManager::GetFade();
+
+			if (pFade != NULL)
+			{
+				//フェードを行う
+				pFade->SetFade(CManager::MODE_TYPE_RESULT);
+
+				return;
+			}
+		}
 	}
 
 	if (m_pDllar)

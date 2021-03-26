@@ -25,11 +25,11 @@ public:
 	{
 		SOUND_LABEL_SE_SHOUT = 0,	//発射音
 		SOUND_LABEL_SE_EXEPLOSION,	//爆発音
-		SOUND_LABEL_SE_ENTER,	//エンターキー
+		SOUND_LABEL_SE_ENTER,		//エンターキー
 		SOUND_LABEL_SE_IDOU,
-		SOUND_LABEL_BGM_TITLE,	//タイトルBGM
-		SOUND_LABEL_BGM_GAME,	//ゲームBGM
-		SOUND_LABEL_MAX	//ラベル最大数
+		SOUND_LABEL_BGM_TITLE,		//タイトルBGM
+		SOUND_LABEL_BGM_GAME,		//ゲームBGM
+		SOUND_LABEL_MAX				//ラベル最大数
 	}SOUND_LABEL;
 
 	//=========================================================================

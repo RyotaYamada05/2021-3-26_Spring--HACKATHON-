@@ -177,7 +177,7 @@ HRESULT CSound::Init(HWND hWnd)
 	}
 
 	//マスターボイスの調整
-	m_pMasteringVoice->SetVolume(0.001f);
+	m_pMasteringVoice->SetVolume(1.0f);
 
 	return S_OK;
 }
