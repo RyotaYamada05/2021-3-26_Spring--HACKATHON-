@@ -25,7 +25,7 @@ LPDIRECT3DTEXTURE9 CBg::m_apTexture[MAX_BG_TEX] = {};	//テクスチャのポインタ
 CBg::CBg(int nPriority) : CScene(nPriority)
 {
 	//0クリア
-	memset(m_apScene2D, NULL, sizeof(m_apScene2D));
+	m_apScene2D = NULL;
 }
 
 //=============================================================================
@@ -65,7 +65,7 @@ HRESULT CBg::Load(void)
 	LPDIRECT3DDEVICE9 pD3DDevice = CManager::GetRenderer()->GetDevice();
 
 	//テクスチャの読み込み
-	D3DXCreateTextureFromFile(pD3DDevice, "data/Texture/BG/sky.png", &m_apTexture[0]);
+	D3DXCreateTextureFromFile(pD3DDevice, "data/Texture/BG/map.png", &m_apTexture[0]);
 	D3DXCreateTextureFromFile(pD3DDevice, "data/Texture/BG/mountain.png", &m_apTexture[1]);
 	D3DXCreateTextureFromFile(pD3DDevice, "data/Texture/BG/wood.png", &m_apTexture[2]);
 
@@ -93,18 +93,17 @@ void CBg::UnLoad(void)
 //=============================================================================
 HRESULT CBg::Init(void)
 {
-	for (int nCount = 0; nCount < MAX_2D_NUM; nCount++)
-	{
-		//2Dポリゴンクラスのインスタンス生成
-		m_apScene2D[nCount] = CScene2D::Create(SCREEN_CENTER_POS, SCREEN_SIZE, CScene::PRIORITY_BG);
 
-		if (m_apScene2D[nCount])
-		{
-			//テクスチャの割り当て
-			m_apScene2D[nCount]->BindTexture(m_apTexture[nCount]);
-		}
+	//2Dポリゴンクラスのインスタンス生成
+	m_apScene2D = CScene2D::Create(SCREEN_CENTER_POS, SCREEN_SIZE, CScene::PRIORITY_BG);
+
+	if (m_apScene2D)
+	{
+		//テクスチャの割り当て
+		m_apScene2D->BindTexture(m_apTexture[0]);
 	}
-	
+
+
 	return S_OK;
 }
 
@@ -113,13 +112,12 @@ HRESULT CBg::Init(void)
 //=============================================================================
 void CBg::Uninit(void)
 {
-	for (int nCount = 0; nCount < MAX_2D_NUM; nCount++)
-	{
-		if (m_apScene2D[nCount])
+	
+		if (m_apScene2D)
 		{
-			m_apScene2D[nCount]->Uninit();
+			m_apScene2D->Uninit();
 		}
-	}
+	
 
 	//オブジェクトの破棄
 	SetDeathFlag();
@@ -130,29 +128,29 @@ void CBg::Uninit(void)
 //=============================================================================
 void CBg::Update(void)
 {
-	//移動量
-	static float fMove[3] = {};
+	////移動量
+	//static float fMove[3] = {};
 
-	//UV座標用の変数
-	D3DXVECTOR2 aUVpos[4];
-	
-	for (int nCount = 0; nCount < MAX_2D_NUM; nCount++)
-	{
-		if (m_apScene2D[nCount])
-		{
-			//移動量の計算
-			fMove[nCount] += RATE_BG + (nCount * RATE_BG);
+	////UV座標用の変数
+	//D3DXVECTOR2 aUVpos[4];
+	//
+	//for (int nCount = 0; nCount < MAX_2D_NUM; nCount++)
+	//{
+	//	if (m_apScene2D[nCount])
+	//	{
+	//		//移動量の計算
+	//		fMove[nCount] += RATE_BG + (nCount * RATE_BG);
 
-			//UV座標の定義
-			aUVpos[0] = D3DXVECTOR2(0.0f + fMove[nCount], 0.0f);
-			aUVpos[1] = D3DXVECTOR2(1.0f + fMove[nCount], 0.0f);
-			aUVpos[2] = D3DXVECTOR2(0.0f + fMove[nCount], 1.0f);
-			aUVpos[3] = D3DXVECTOR2(1.0f + fMove[nCount], 1.0f);
+	//		//UV座標の定義
+	//		aUVpos[0] = D3DXVECTOR2(0.0f + fMove[nCount], 0.0f);
+	//		aUVpos[1] = D3DXVECTOR2(1.0f + fMove[nCount], 0.0f);
+	//		aUVpos[2] = D3DXVECTOR2(0.0f + fMove[nCount], 1.0f);
+	//		aUVpos[3] = D3DXVECTOR2(1.0f + fMove[nCount], 1.0f);
 
-			//2DポリゴンクラスのUV座標設定処理呼び出し
-			m_apScene2D[nCount]->SetUV(aUVpos);
-		}
-	}
+	//		//2DポリゴンクラスのUV座標設定処理呼び出し
+	//		m_apScene2D[nCount]->SetUV(aUVpos);
+	//	}
+	//}
 }
 
 //=============================================================================
@@ -160,4 +158,23 @@ void CBg::Update(void)
 //=============================================================================
 void CBg::Draw(void)
 {
+}
+
+void CBg::SetTexPos(D3DXVECTOR2 * pPos)
+{
+	//UV座標用の変数
+	D3DXVECTOR2 aUVpos[4];
+
+	if (m_apScene2D)
+	{
+		//UV座標の定義
+		aUVpos[0] = pPos[0];
+		aUVpos[1] = pPos[1];
+		aUVpos[2] = pPos[2];
+		aUVpos[3] = pPos[3];
+
+		//2DポリゴンクラスのUV座標設定処理呼び出し
+		m_apScene2D->SetUV(aUVpos);
+	}
+
 }

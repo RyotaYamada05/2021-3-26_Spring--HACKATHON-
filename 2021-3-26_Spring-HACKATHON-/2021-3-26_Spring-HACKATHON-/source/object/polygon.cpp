@@ -272,6 +272,16 @@ D3DXVECTOR3 CPolygon::GetPos(void)
 	return m_pos;
 }
 
+void CPolygon::SetSize(const D3DXVECTOR3 size)
+{
+	m_size = size;
+}
+
+D3DXVECTOR3 CPolygon::GetSize(void)
+{
+	return m_size;
+}
+
 //=============================================================================
 //ポリゴンクラスの点滅処理
 //=============================================================================

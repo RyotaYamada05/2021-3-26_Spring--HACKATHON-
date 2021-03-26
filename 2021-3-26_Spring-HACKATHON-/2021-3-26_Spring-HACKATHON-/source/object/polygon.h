@@ -30,6 +30,7 @@ public:
 		TEX_TYPE_PRESSENTER,	//PRESS ENTERテクスチャ
 		TEX_TYPE_GAME_CLEAR,
 		TEX_TYPE_GAME_OVER,
+		TEX_TYPE_DOOR,
 		TEX_TYPE_MAX,	//最大テクスチャ
 	}TEX_TYPE;
 
@@ -63,6 +64,8 @@ public:
 	void SetColor(const D3DXCOLOR color);
 	void SetPos(const D3DXVECTOR3 pos);
 	D3DXVECTOR3 GetPos(void);
+	void SetSize(const D3DXVECTOR3 size);
+	D3DXVECTOR3 GetSize(void);
 	void Flashing(void);
 
 private:

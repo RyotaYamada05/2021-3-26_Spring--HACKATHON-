@@ -31,7 +31,7 @@ public:
 		OBJTYPE_EXPLOSION,	//爆発タイプ
 		OBJTYPE_BOME,	//ボムタイプ
 		OBJTYPE_ITEM,	//アイテムタイプ
-		OBJTYPE_SHIELD,	//シールドタイプ
+		OBJTYPE_DOOR,	//扉タイプ
 		OBJTYPE_MAX	//オブジェクトタイプの最大数
 	}OBJTYPE;	//オブジェクトタイプ
 
