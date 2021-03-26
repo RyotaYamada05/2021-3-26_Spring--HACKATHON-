@@ -110,10 +110,10 @@ HRESULT CGame::Init(void)
 	////アイテムの生成
 	//CItem::Create(D3DXVECTOR3(200.0f, 200.0f, 0.0f), ITEM_SIZE, CItem::ITEM_DIAMOND);
 
-	//エネミーの生成
-	CEnemy::Create(D3DXVECTOR3(500.0f, 200.0f, 0.0f), ITEM_SIZE, CEnemy::ENEMY_TYPE_NOMRL,CEnemy::DEATH_ACTION_LIFE);
+	////エネミーの生成
+	//CEnemy::Create(D3DXVECTOR3(500.0f, 200.0f, 0.0f), ITEM_SIZE, CEnemy::ENEMY_TYPE_NOMRL,CEnemy::DEATH_ACTION_LIFE);
 
-	CEnemy::Create(D3DXVECTOR3(900.0f, 500.0f, 0.0f), ITEM_SIZE, CEnemy::ENEMY_TYPE_NOMRL2);
+	//CEnemy::Create(D3DXVECTOR3(900.0f, 500.0f, 0.0f), ITEM_SIZE, CEnemy::ENEMY_TYPE_NOMRL2);
 
 	return S_OK;
 }

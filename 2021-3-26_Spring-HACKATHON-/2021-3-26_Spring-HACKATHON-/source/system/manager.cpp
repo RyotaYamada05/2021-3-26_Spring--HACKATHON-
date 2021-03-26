@@ -9,6 +9,7 @@
 //インクルードファイル
 //=============================================================================
 #include "manager.h"
+#include <time.h>
 #include "renderer.h"
 #include "input.h"
 #include "keyboard.h"
@@ -231,7 +232,7 @@ void CManager::Uninit(void)
 //=============================================================================
 void CManager::Update(void)
 {
-	srand(NULL);
+	srand((unsigned int)time(NULL));
 
 	if (m_pKeyBoard)
 	{

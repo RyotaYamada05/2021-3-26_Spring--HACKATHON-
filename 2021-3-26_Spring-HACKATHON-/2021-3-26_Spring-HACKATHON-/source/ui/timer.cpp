@@ -4,7 +4,7 @@
 // Author : Ito Yogo
 //
 //=============================================================================
-#include "time.h"
+#include "timer.h"
 #include "number.h"
 #include "scene2d.h"
 

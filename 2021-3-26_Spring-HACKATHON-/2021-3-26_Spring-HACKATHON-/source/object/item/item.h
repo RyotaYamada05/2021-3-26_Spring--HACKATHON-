@@ -58,6 +58,10 @@ private:
 	int m_nTime;
 	bool m_bflag;
 	int m_nCounter;
+
+	float m_fAngle;
+	D3DXVECTOR3 m_pos;
+
 };
 
 #endif // !_ITEM_H_

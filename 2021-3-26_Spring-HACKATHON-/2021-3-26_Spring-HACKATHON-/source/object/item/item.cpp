@@ -7,8 +7,9 @@
 #include "item.h"
 #include "player.h"
 #include "score.h"
-#include "time.h"
+#include "timer.h"
 #include "ui.h"
+#include "manager.h"
 
 //=============================================================================
 //ƒ}ƒNƒ’è‹`
@@ -27,6 +28,7 @@ CItem::CItem()
 	m_nTime = 0;
 	m_bflag = false;
 	m_nCounter = 0;
+	m_fAngle = 0.0f;
 }
 
 //=============================================================================
@@ -164,14 +166,14 @@ void CItem::Update(void)
 	else
 	{
 		m_nCounter++;
-		if (m_nCounter == 100)
+		if (m_nCounter == 50)
 		{
-			float posX = (float)(0 + rand() % 1000);
-			float posY = (float)(0 + rand() % 700);
+			float posX = (float)(100 + rand() % 900);
+			float posY = (float)(100 + rand() % 500);
 
 			SetPos(D3DXVECTOR3(posX, posY, 0.0f));
 		}
-		if (m_nCounter >= 60)
+		if (m_nCounter >= 120)
 		{
 			m_nCounter = 0;
 			m_bflag = false;
