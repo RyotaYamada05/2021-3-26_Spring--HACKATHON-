@@ -32,6 +32,7 @@ public:
 	{
 		NUMBER_TYPE_000 = 0,
 		NUMBER_TYPE_001,
+		NUMBER_TYPE_002,
 		NUMBER_TYPE_MAX
 	}NUMBER_TYPE;
 
@@ -50,8 +51,10 @@ public:
 	void Update(void);
 	void Draw(void);
 	void SetNumber(const int nNumber);
+	void SetPos(D3DXVECTOR3 pos);
 	void SetColr(const D3DXCOLOR col);
 
+	D3DXVECTOR3 GetPos(void) { return m_pos; }
 private:
 	//=========================================================================
 	//ƒƒ“ƒo•Ï”éŒ¾

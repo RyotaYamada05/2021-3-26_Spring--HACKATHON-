@@ -11,6 +11,8 @@
 #include "fade.h"
 #include "sound.h"
 #include "joystick.h"
+#include "ranking.h"
+#include "score.h"
 
 //=============================================================================
 //リザルトクラスのコンストラクタ
@@ -63,6 +65,8 @@ HRESULT CResult::Init(void)
 	//ポリゴンを生成
 	m_pPolygon = CPolygon::Create(SCREEN_CENTER_POS, SCREEN_SIZE, CPolygon::TEX_TYPE_RESULET);
 
+	CRanking::Create();
+
 	return S_OK;
 }
 
@@ -96,31 +100,6 @@ void CResult::Update(void)
 	{
 		//ポリゴンクラスの更新処理呼び出し
 		m_pPolygon->Update();
-	}
-
-	//キーボードクラスの情報取得
-	CInputKeyboard *pKeyBoard = CManager::GetKeyborad();
-	CInputJoyStick *pJoyStick = CManager::GetJoyStick();
-
-	//ENTERキーまたはジョイBが押されてかつm_bEnterがfalseの時
-	if ((pKeyBoard->GetKeyBoardRelease(DIK_RETURN) ||
-		pJoyStick->GetJoyStickTrigger(CInputJoyStick::JOY_BUTTON_B)) && m_bEnter == false)
-	{
-		m_bEnter = true;
-
-		//SEを再生
-		CManager::GetSound()->Play(CSound::SOUND_LABEL_SE_ENTER);
-
-		//フェード情報を取得
-		CFade *pFade = CManager::GetFade();
-
-		if (pFade != NULL)
-		{
-			//フェードを行う
-			pFade->SetFade(CManager::MODE_TYPE_TITLE);
-		}
-
-		return;
 	}
 }
 
