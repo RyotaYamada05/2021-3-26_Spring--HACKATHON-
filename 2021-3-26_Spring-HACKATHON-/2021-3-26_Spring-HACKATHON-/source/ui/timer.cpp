@@ -66,7 +66,7 @@ HRESULT CTime::Init(void)
 	for (int nCount = 0; nCount < TIME_MAX_NUM; nCount++)
 	{
 		//ナンバークラスをSCORE_MAX_NUM分生成
-		m_apNumber[nCount] = CNumber::Create(0, CNumber::NUMBER_TYPE_000,	//表示する数字と種類
+		m_apNumber[nCount] = CNumber::Create(0, CNumber::NUMBER_TYPE_001,	//表示する数字と種類
 			D3DXVECTOR3(((SCREEN_WIDTH / 2) - (NUMBER_SIZE_X * nCount) + (NUMBER_SIZE_X / 2)),		//x軸の位置
 			(NUMBER_SIZE_Y / 2), //yの位置
 				0.0f),	//zの位置
@@ -85,18 +85,7 @@ HRESULT CTime::Init(void)
 		//各桁の値を求める
 		int nScore = (int)powf(fRadix, fIndex);
 		int nScore2 = (int)powf(fRadix, fIndex + 1);
-		int nAnswer = 0;
-
-		// 秒で考えた時間が60以上だったら
-		if (nTimeSec >= 60)
-		{
-			nTimeMin = nTimeSec - 60 + 100;
-			nAnswer = (nTimeMin % nScore2) / nScore;
-		}
-		else
-		{
-			nAnswer = (nTimeSec % nScore2) / nScore;
-		}
+		int nAnswer = (nTimeSec % nScore2) / nScore;
 
 		if (m_apNumber[(int)fIndex])
 		{
@@ -174,18 +163,7 @@ void CTime::SubTime()
 		//各桁の値を求める
 		int nScore = (int)powf(fRadix, fIndex);
 		int nScore2 = (int)powf(fRadix, fIndex + 1);
-		int nAnswer = 0;
-
-		// 秒で考えた時間が60以上だったら分に
-		if (nTimeSec >= 60)
-		{
-			nTimeMin = nTimeSec - 60 + 100;
-			nAnswer = (nTimeMin % nScore2) / nScore;
-		}
-		else
-		{
-			nAnswer = (nTimeSec % nScore2) / nScore;
-		}
+		int nAnswer = (nTimeSec % nScore2) / nScore;
 
 		if (m_apNumber[(int)fIndex])
 		{

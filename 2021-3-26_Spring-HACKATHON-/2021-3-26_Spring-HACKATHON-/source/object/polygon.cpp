@@ -78,7 +78,7 @@ HRESULT CPolygon::Load(void)
 	//テクスチャの読み込み
 	D3DXCreateTextureFromFile(pD3DDevice, "data/Texture/BG/Title.png", &m_pTexture[TEX_TYPE_TITLE]);			//タイトル
 	D3DXCreateTextureFromFile(pD3DDevice, "data/Texture/UI/Title_Logo.png", &m_pTexture[TEX_TYPE_TITLE_LOGO]);	//タイトル
-	D3DXCreateTextureFromFile(pD3DDevice, "data/Texture/BG/Result.png", &m_pTexture[TEX_TYPE_RESULET]);			//リザルト
+	D3DXCreateTextureFromFile(pD3DDevice, "data/Texture/BG/NewResult.png", &m_pTexture[TEX_TYPE_RESULET]);			//リザルト
 	D3DXCreateTextureFromFile(pD3DDevice, "data/Texture/UI/PRESS_ENTER.png", &m_pTexture[TEX_TYPE_PRESSENTER]);	//PRESS ENTERテクスチャ
 	D3DXCreateTextureFromFile(pD3DDevice, "data/Texture/UI/GAME CLEAR.png", &m_pTexture[TEX_TYPE_GAME_CLEAR]);	//PRESS ENTERテクスチャ
 	D3DXCreateTextureFromFile(pD3DDevice, "data/Texture/UI/GAME OVER.png", &m_pTexture[TEX_TYPE_GAME_OVER]);	//PRESS ENTERテクスチャ

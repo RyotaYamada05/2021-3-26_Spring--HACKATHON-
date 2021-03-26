@@ -7,6 +7,8 @@
 #include "ui.h"
 #include "score.h"
 #include "timer.h"
+#include "dollar.h"
+#include "number.h"
 
 //=============================================================================
 //ê√ìIÉÅÉìÉoïœêîêÈåæ
@@ -19,6 +21,7 @@ CTime * CUi::pTime = NULL;
 //=============================================================================
 CUi::CUi()
 {
+	m_pDllar = NULL;
 }
 
 //=============================================================================
@@ -33,8 +36,18 @@ CUi::~CUi()
 //=============================================================================
 HRESULT CUi::Init(void)
 {
-	pScore = CScore::Create();
+	pScore = CScore::Create(D3DXVECTOR3(SCREEN_WIDTH, 0.0f, 0.0f));
 	pTime = CTime::Create();
+	for (int nCount = SCORE_MAX_NUM - 1; -1 < nCount; nCount--)
+	{
+		if (pScore->GetNumber(nCount))
+		{
+			D3DXVECTOR3 pos = pScore->GetNumber(nCount)->GetPos();
+			m_pDllar = CDollar::Create(D3DXVECTOR3(pos.x - 50.0f, pos.y, pos.z));
+			break;
+		}
+	}
+
 	return S_OK;
 }
 
@@ -60,6 +73,21 @@ void CUi::Update(void)
 	{
 		// éûä‘ÇÃå∏éZ
 		pTime->SubTime();
+	}
+
+	if (m_pDllar)
+	{
+		for (int nCount = SCORE_MAX_NUM - 1; -1 < nCount; nCount--)
+		{
+			if (pScore->GetNumber(nCount))
+			{
+				D3DXVECTOR3 pos = pScore->GetNumber(nCount)->GetPos();
+				m_pDllar->SetPos(D3DXVECTOR3(pos.x - 50.0f, pos.y, pos.z));
+				break;
+			}
+		}
+
+		m_pDllar->Update();
 	}
 }
 
