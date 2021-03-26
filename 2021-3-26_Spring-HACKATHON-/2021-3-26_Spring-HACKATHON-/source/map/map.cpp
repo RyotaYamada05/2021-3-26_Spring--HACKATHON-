@@ -38,7 +38,7 @@ CMap::~CMap()
 //=============================================================================
 HRESULT CMap::Init(void)
 {
-	m_MapIndex = MAP_AREA_1;
+	
 
 	// ”wŒiƒNƒ‰ƒX‚Ì¶¬
 	m_pBg = CBg::Create();
@@ -86,7 +86,7 @@ HRESULT CMap::Init(void)
 			m_pArea[MAP_AREA_4]->Init(MAP_AREA_4);
 		}
 	}
-
+	m_MapIndex = MAP_AREA_1;
 	m_pArea[m_MapIndex]->SetMapStart();
 	return S_OK;
 }

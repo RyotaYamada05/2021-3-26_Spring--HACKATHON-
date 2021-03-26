@@ -82,6 +82,11 @@ HRESULT CPolygon::Load(void)
 	D3DXCreateTextureFromFile(pD3DDevice, "data/Texture/UI/PRESS_ENTER.png", &m_pTexture[TEX_TYPE_PRESSENTER]);	//PRESS ENTERテクスチャ
 	D3DXCreateTextureFromFile(pD3DDevice, "data/Texture/UI/GAME CLEAR.png", &m_pTexture[TEX_TYPE_GAME_CLEAR]);	//PRESS ENTERテクスチャ
 	D3DXCreateTextureFromFile(pD3DDevice, "data/Texture/UI/GAME OVER.png", &m_pTexture[TEX_TYPE_GAME_OVER]);	//PRESS ENTERテクスチャ
+
+	D3DXCreateTextureFromFile(pD3DDevice, "data/Texture/door/Left.png", &m_pTexture[TEX_TYPE_DOOR_LEFT]);			//タイトル
+	D3DXCreateTextureFromFile(pD3DDevice, "data/Texture/door/Rgiht.png", &m_pTexture[TEX_TYPE_DOOR_RGIHT]);	//タイトル
+	D3DXCreateTextureFromFile(pD3DDevice, "data/Texture/door/Top.png", &m_pTexture[TEX_TYPE_DOOR_TOP]);			//リザルト
+	D3DXCreateTextureFromFile(pD3DDevice, "data/Texture/door/Under.png", &m_pTexture[TEX_TYPE_DOOR_UNDER]);	//PRESS ENTERテクスチャ
 	return S_OK;
 }
 

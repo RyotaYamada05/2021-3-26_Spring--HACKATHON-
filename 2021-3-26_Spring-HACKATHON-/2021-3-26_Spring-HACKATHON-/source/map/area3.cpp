@@ -23,8 +23,8 @@ CArea3::~CArea3()
 HRESULT CArea3::Init(CMap::MAP_AREA m_Area_Type)
 {
 	CAreaBase::Init(m_Area_Type);
-	m_pPolygon[0] = CPolygon::Create(D3DXVECTOR3(SCREEN_WIDTH /2, 0.0f, 0.0f), D3DXVECTOR3(200.0f, 200.0f, 0.0f), CPolygon::TEX_TYPE_DOOR);
-	m_pPolygon[1] = CPolygon::Create(D3DXVECTOR3(SCREEN_WIDTH, SCREEN_HEIGHT/2, 0.0f), D3DXVECTOR3(200.0f, 200.0f, 0.0f), CPolygon::TEX_TYPE_DOOR);
+	m_pPolygon[0] = CPolygon::Create(D3DXVECTOR3(SCREEN_WIDTH /2, 0.0f + 100.0f/2, 0.0f), D3DXVECTOR3(100.0f, 100.0f, 0.0f), CPolygon::TEX_TYPE_DOOR_TOP);
+	m_pPolygon[1] = CPolygon::Create(D3DXVECTOR3(SCREEN_WIDTH - 100.0f/2, SCREEN_HEIGHT/2, 0.0f), D3DXVECTOR3(100.0f, 100.0f, 0.0f), CPolygon::TEX_TYPE_DOOR_RGIHT);
 	return E_NOTIMPL;
 }
 
@@ -35,7 +35,6 @@ void CArea3::Uninit(void)
 
 void CArea3::Update(void)
 {
-	CDebugFont::Print(CDebugFont::DEBUG_LAYER_RIGHT, "AREA3ƒNƒ‰ƒX\n");
 
 	if (CMap::GetIndex() == m_Area_Type)
 	{

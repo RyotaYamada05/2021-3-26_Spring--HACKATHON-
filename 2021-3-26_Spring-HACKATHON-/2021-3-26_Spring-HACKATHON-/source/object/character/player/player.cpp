@@ -14,7 +14,7 @@
 #include "score.h"
 #include "map.h"
 #include "bg.h"
-
+#include "renderer.h"
 //=============================================================================
 //マクロ定義
 //=============================================================================
@@ -24,6 +24,7 @@
 #define MAX_PLAYER_LIFE	50		//プレイヤーの最大体力
 #define COUNT_TIME 180			//止まる時間のカウント
 
+LPDIRECT3DTEXTURE9 CPlayer::m_pTexture = NULL;
 //=============================================================================
 //プレイヤークラスのコンストラクタ
 //=============================================================================
@@ -59,6 +60,26 @@ CPlayer * CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	return pPlayer;
 }
 
+HRESULT CPlayer::Load(void)
+{
+	//デバイスの取得
+	LPDIRECT3DDEVICE9 pD3DDevice = CManager::GetRenderer()->GetDevice();
+
+	//テクスチャの読み込み
+	D3DXCreateTextureFromFile(pD3DDevice, "data/Texture/Player/Player.png", &m_pTexture);			//タイトル
+	return E_NOTIMPL;
+}
+
+void CPlayer::UnLoad(void)
+{
+	//テクスチャの破棄
+	if (m_pTexture)
+	{
+		m_pTexture->Release();
+		m_pTexture = NULL;
+	}
+}
+
 //=============================================================================
 //プレイヤークラスの初期化処理
 //=============================================================================
@@ -70,7 +91,16 @@ HRESULT CPlayer::Init(void)
 
 	//CScene2Dの初期化
 	CScene2D::Init();
+	CScene2D::BindTexture(m_pTexture);
 
+	D3DXVECTOR2 pos[4];
+	int nNum = 3;
+	pos[0] = D3DXVECTOR2(0.3333333f, 0.0f);
+	pos[1] = D3DXVECTOR2(0.6666666f, 0.0f);
+	pos[2] = D3DXVECTOR2(0.3333333f, 0.25f);
+	pos[3] = D3DXVECTOR2(0.6666666f, 0.25f);
+
+	SetUV(pos);
 	//オブジェクトタイプの設定
 	SetObjType(CScene::OBJTYPE_PLAYER);
 

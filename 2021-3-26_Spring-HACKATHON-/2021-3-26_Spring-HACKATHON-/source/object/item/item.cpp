@@ -10,6 +10,8 @@
 #include "timer.h"
 #include "ui.h"
 #include "manager.h"
+#include "bg.h"
+#include "map.h"
 
 //=============================================================================
 //マクロ定義
@@ -99,6 +101,16 @@ void CItem::Uninit(void)
 //=============================================================================
 void CItem::Update(void)
 {
+	CBg::SCROOL_FALG ScFlag = CMap::GetBg()->GetScroolFlag();
+	if (ScFlag.bScrool)
+	{
+		D3DXVECTOR3 pos = GetPos();
+
+		pos.x += -ScFlag.rot.x *((1000 / TIME_VUALE));
+		pos.y += -ScFlag.rot.y *((450 / TIME_VUALE));
+
+		SetPos(pos);
+	}
 	if (!m_bflag)
 	{
 		//CScene2Dの更新

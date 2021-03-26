@@ -23,6 +23,7 @@
 #include "result.h"
 #include "polygon.h"
 #include "number.h"
+#include "player.h"
 
 //=============================================================================
 //静的メンバ変数宣言
@@ -281,6 +282,8 @@ void CManager::LoadAll(void)
 	CBg::Load();
 	//ナンバークラスのテクスチャ読み込み
 	CNumber::Load();
+
+	CPlayer::Load();
 }
 
 //=============================================================================
@@ -288,6 +291,7 @@ void CManager::LoadAll(void)
 //=============================================================================
 void CManager::UnLoadAll(void)
 {
+	CPlayer::UnLoad();
 	//ナンバークラスのテクスチャ破棄
 	CNumber::UnLoad();
 	//背景クラスのテクスチャ破棄
