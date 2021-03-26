@@ -19,6 +19,11 @@
 #define MAX_2D_NUM 3	//2Dポリゴンの数
 #define BG_SIZE D3DXVECTOR3(SCREEN_WIDTH,SCREEN_HEIGHT,0.0f)	//背景サイズ
 
+#define SCROOL_DOWN D3DXVECTOR2(0.0f,1.0f)
+#define SCROOL_UP D3DXVECTOR2(0.0f,-1.0f)
+#define SCROOL_LEFT D3DXVECTOR2(-1.0f,0.0f)
+#define SCROOL_RGHIT D3DXVECTOR2(1.0f,0.0f)
+#define TIME_VUALE 50
 //=============================================================================
 //前方宣言
 //=============================================================================
@@ -30,6 +35,11 @@ class CScene2D;
 class CBg : public CScene
 {
 public:
+	typedef struct
+	{
+		bool bScrool;
+		D3DXVECTOR2 rot;
+	}SCROOL_FALG;
 	//=========================================================================
 	//メンバ関数宣言
 	//=========================================================================
@@ -47,6 +57,8 @@ public:
 	void Draw(void);
 
 	void SetTexPos(D3DXVECTOR2 *pPos);
+	void SetScroolFlag(D3DXVECTOR2 rot);
+	SCROOL_FALG GetScroolFlag(void);
 
 private:
 	//=========================================================================
@@ -54,5 +66,8 @@ private:
 	//=========================================================================
 	static LPDIRECT3DTEXTURE9 m_apTexture[MAX_BG_TEX];
 	CScene2D *m_apScene2D;
+	D3DXVECTOR2 m_pMoveValue[4];
+	int m_nCounter;
+	SCROOL_FALG m_Flag;
 };
 #endif

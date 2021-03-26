@@ -57,7 +57,8 @@ public:
 	D3DXVECTOR3 GetPos(void)const;
 	void SetSize(const D3DXVECTOR3 size);
 	D3DXVECTOR3 GetSize(void)const;
-	void SetUV(D3DXVECTOR2 UVpos[]);
+	void SetUV(D3DXVECTOR2 *UVpos);
+	D3DXVECTOR2 *GetUV(void);
 	void SetColor(const D3DXCOLOR col);
 	void BindTexture(const LPDIRECT3DTEXTURE9 pTexture);
 	
@@ -72,6 +73,7 @@ private:
 	D3DXVECTOR3 m_pos;	//ポリゴンの位置
 	D3DXVECTOR3 m_size;	//ポリゴンのサイズ
 	D3DXCOLOR m_col;	//ポリゴンの色
+	D3DXVECTOR2 m_Tex[4];
 };
 
 #endif

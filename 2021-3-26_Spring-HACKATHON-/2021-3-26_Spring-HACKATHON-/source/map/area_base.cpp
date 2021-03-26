@@ -66,6 +66,10 @@ void CAreaBase::SetMap(void)
 {
 }
 
+void CAreaBase::SetMapStart(void)
+{
+}
+
 CMap::MAP_AREA CAreaBase::GetArea(void)
 {
 	return m_Area_Type;
