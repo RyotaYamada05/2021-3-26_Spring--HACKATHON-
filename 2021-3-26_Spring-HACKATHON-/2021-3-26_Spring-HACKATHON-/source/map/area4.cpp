@@ -6,6 +6,7 @@
 #include "keyboard.h"
 #include "map.h"
 #include  "player.h"
+#include "item.h"
 
 
 #define MAP_AREA4_TOP_LEFT D3DXVECTOR2(0.5f,0.5f)
@@ -26,7 +27,16 @@ HRESULT CArea4::Init(CMap::MAP_AREA m_Area_Type)
 	CAreaBase::Init(m_Area_Type);
 	m_pPolygon[0] = CPolygon::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, 0.0f, 0.0f), D3DXVECTOR3(200.0f, 200.0f, 0.0f), CPolygon::TEX_TYPE_DOOR);
 	m_pPolygon[1] = CPolygon::Create(D3DXVECTOR3(0, SCREEN_HEIGHT / 2, 0.0f), D3DXVECTOR3(200.0f, 200.0f, 0.0f), CPolygon::TEX_TYPE_DOOR);
-	return E_NOTIMPL;
+	
+	//アイテムの生成
+	CItem::Create(D3DXVECTOR3(200.0f, 200.0f, 0.0f), ITEM_SIZE, CItem::ITEM_DIAMOND);
+
+	//アイテムの生成
+	CItem::Create(D3DXVECTOR3(200.0f, 200.0f, 0.0f), ITEM_SIZE, CItem::ITEM_TREASURE);
+
+	//アイテムの生成
+	CItem::Create(D3DXVECTOR3(200.0f, 200.0f, 0.0f), ITEM_SIZE, CItem::ITEM_TRAP);
+	return S_OK;
 }
 
 void CArea4::Uninit(void)

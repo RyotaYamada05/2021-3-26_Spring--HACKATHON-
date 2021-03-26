@@ -32,7 +32,12 @@ HRESULT CArea1::Init(CMap::MAP_AREA m_Area_Type)
 	//アイテムの生成
 	CItem::Create(D3DXVECTOR3(200.0f, 200.0f, 0.0f), ITEM_SIZE, CItem::ITEM_DIAMOND);
 
-	return E_NOTIMPL;
+	//アイテムの生成
+	CItem::Create(D3DXVECTOR3(200.0f, 200.0f, 0.0f), ITEM_SIZE, CItem::ITEM_TREASURE);
+
+	//アイテムの生成
+	CItem::Create(D3DXVECTOR3(200.0f, 200.0f, 0.0f), ITEM_SIZE, CItem::ITEM_TRAP);
+	return S_OK;
 }
 
 void CArea1::Uninit(void)
