@@ -47,7 +47,6 @@ public:
 	void Draw(void);
 
 	void DoubleScore(void);	//ダブルスコア関数
-	void RandomCreate(void);
 	ITEM GetItem(void) { return m_Item; }
 private:
 	//=========================================================================
@@ -57,6 +56,12 @@ private:
 	int m_nPoint;//ポイントの値保存
 	ITEM m_Item;//種類
 	int m_nTime;
+	bool m_bflag;
+	int m_nCounter;
+
+	float m_fAngle;
+	D3DXVECTOR3 m_pos;
+
 };
 
 #endif // !_ITEM_H_

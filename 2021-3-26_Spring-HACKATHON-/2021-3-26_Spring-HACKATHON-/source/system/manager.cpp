@@ -9,6 +9,7 @@
 //インクルードファイル
 //=============================================================================
 #include "manager.h"
+#include <time.h>
 #include "renderer.h"
 #include "input.h"
 #include "keyboard.h"
@@ -231,6 +232,8 @@ void CManager::Uninit(void)
 //=============================================================================
 void CManager::Update(void)
 {
+	srand((unsigned int)time(NULL));
+
 	if (m_pKeyBoard)
 	{
 		//入力処理クラスの更新処理呼び出し
