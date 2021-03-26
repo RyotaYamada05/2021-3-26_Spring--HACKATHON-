@@ -25,13 +25,20 @@
 class CItem :public CScene2D
 {
 public:
+	// アイテムの種類
+	typedef enum
+	{
+		ITEM_COIN = 0,	// コイン
+		ITEM_TREASURE,	// 宝
+		ITEM_MAX
+	}ITEM;
 	//=========================================================================
 	//メンバ関数宣言
 	//=========================================================================
 	CItem();
 	~CItem();
 
-	static CItem *Create(D3DXVECTOR3 pos, D3DXVECTOR3 size);
+	static CItem *Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, ITEM type);
 
 	HRESULT Init(void);
 	void Uninit(void);
@@ -39,6 +46,8 @@ public:
 	void Draw(void);
 
 private:
+	int m_nPoint;
+	ITEM m_pItem;
 	//=========================================================================
 	//メンバ変数宣言
 	//=========================================================================

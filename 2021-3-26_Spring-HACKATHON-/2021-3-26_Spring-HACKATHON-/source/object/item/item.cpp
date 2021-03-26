@@ -8,10 +8,17 @@
 #include "player.h"
 
 //=============================================================================
+//マクロ定義
+//=============================================================================
+#define POINT_COIN 1
+#define POINT_TREASURE 5
+
+//=============================================================================
 //アイテムクラスのコンストラクタ
 //=============================================================================
 CItem::CItem()
 {
+	m_nPoint = 0;
 }
 
 //=============================================================================
@@ -24,7 +31,7 @@ CItem::~CItem()
 //=============================================================================
 //アイテムクラスのクリエイト処理
 //=============================================================================
-CItem * CItem::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
+CItem * CItem::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, ITEM type)
 {
 	CItem *pItem = new CItem;
 
@@ -32,6 +39,7 @@ CItem * CItem::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	{
 		pItem->SetPos(pos);
 		pItem->SetSize(size);
+		pItem->m_pItem = type;
 		pItem->Init();
 	}
 	else
@@ -48,6 +56,20 @@ HRESULT CItem::Init(void)
 {
 	//CScene2Dの初期化
 	CScene2D::Init();
+
+	// アイテムのポイント値
+	switch (m_pItem)
+	{
+	// コイン
+	case ITEM_COIN:
+		m_nPoint = POINT_COIN;
+		break;
+	// 宝
+	case ITEM_TREASURE:
+		m_nPoint = POINT_TREASURE;
+	default:
+		break;
+	}
 
 	SetColor(COLOR_BLUE);
 	return S_OK;
